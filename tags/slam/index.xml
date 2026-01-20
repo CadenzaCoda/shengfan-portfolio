@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SLAM |</title><link>https://www.cadenzacoda.click/tags/slam/</link><atom:link href="https://www.cadenzacoda.click/tags/slam/index.xml" rel="self" type="application/rss+xml"/><description>SLAM</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><image><url>https://www.cadenzacoda.click/media/icon_hu_982c5d63a71b2961.png</url><title>SLAM</title><link>https://www.cadenzacoda.click/tags/slam/</link></image><item><title>Trusted Autonomy for Rapidly Prototyped Uncrewed Ground Vehicles</title><link>https://www.cadenzacoda.click/projects/trusted-autonomy/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.cadenzacoda.click/projects/trusted-autonomy/</guid><description>&lt;h2 id="project-summary"&gt;Project Summary&lt;/h2&gt;
+&lt;h3 id="overview-of-project"&gt;Overview of Project&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt; The Small Quick Integrated Ground Vehicle (SQUIG) vehicle is an autonomous ground vehicle currently under development by the Model Predictive Control (MPC) Lab at the University of California, Berkeley and the Naval Information Warfare Center (NIWC) Pacific. This versatile, low-cost, lightweight platform is designed for outdoor autonomous exploration and de-mining. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Objective:&lt;/strong&gt; The key objectives of this project are technology transfer to NIWC Pacific of advanced model predictive control (MPC) techniques, collaborative design of a user-centric, interpretable autonomy platform, and fundamental research on high-performance autonomy for low-cost autonomous vehicles. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Introduction:&lt;/strong&gt; The SQUIG vehicle is a small scale skid-steer vehicle (four independently-driven wheels) for outdoor autonomous exploration and de-mining. The vehicle is low cost, primarily 3D-printed, and equipped with a Nvidia GPU and sensors including GPS, camera, and IMU. The vehicle can be piloted remotely by a SteamDeck using a graphical user interface (GUI) that is under development alongside the vehicle and autonomy stack. The co-design of hardware, user interface, and autonomy software facilitates the creation of a user-centric, interpretable, and trustworthy autonomy system for Navy personnel. &lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Overview"
+srcset="https://www.cadenzacoda.click/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp 320w, https://www.cadenzacoda.click/projects/trusted-autonomy/overview_hu_6579ec5928084d3d.webp 480w, https://www.cadenzacoda.click/projects/trusted-autonomy/overview_hu_16f8c38731799e59.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp"
+width="760"
+height="428"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Background:&lt;/strong&gt; In the FY24 reporting period, the MPC Lab designed the SQUIG vehicle and built an initial prototype, began a codebase for manual and autonomous control of SQUIG, and tested remote control using a SteamDeck. The vehicle design addresses the project objectives by its low cost (~$2200), light weight, and ease of manufacturing via 3D-printing and manual assembly. It features a modular wheelbase and exchangeable tires for on-the-fly configuration, and powerful compute and sensing capabilities including GPS, camera, and IMU. The proposed autonomy stack consists of three hierarchical layers (perception, path planning, and vehicle control), and utilizes state of the art machine-learning techniques to enhance performance and adaptability.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Hardware Components of SQUIG"
+srcset="https://www.cadenzacoda.click/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp 320w, https://www.cadenzacoda.click/projects/trusted-autonomy/components_hu_314a9a9d97c9b82.webp 480w, https://www.cadenzacoda.click/projects/trusted-autonomy/components_hu_c4f740814c2ce769.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp"
+width="760"
+height="428"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="activities-and-accomplishments"&gt;Activities and Accomplishments&lt;/h3&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Architecture"
+srcset="https://www.cadenzacoda.click/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp 320w, https://www.cadenzacoda.click/projects/trusted-autonomy/architecture_hu_347299cd6f1e9b0c.webp 480w, https://www.cadenzacoda.click/projects/trusted-autonomy/architecture_hu_a58480af539931bd.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp"
+width="760"
+height="428"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="perception-environment-mapping-and-vehicle-localization"&gt;Perception: Environment Mapping and Vehicle Localization&lt;/h3&gt;
+&lt;p&gt;Outdoor autonomous navigation requires learning an unknown environment and accurately tracking the vehicle’s location. To address this challenge, the MPC lab designed a perception software stack that uses SQUIG’s low-cost onboard sensors (GPS, stereo infrared cameras, IMU, motor telemetry) to map the environment and localize the vehicle. This stack uses sensor fusion, combining multiple data sources and techniques to improve accuracy and robustness. Environment data is used to build a map in real time, including terrain traversibility, elevation changes, and obstacles. This map enables the robot to navigate in an unfamiliar environment without any prior data, and the learned map can be reused to improve performance in subsequent iterations of tasks in the same environment. &lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Outdoor capabilities of SQUIG"
+srcset="https://www.cadenzacoda.click/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp 320w, https://www.cadenzacoda.click/projects/trusted-autonomy/outdoor-capabilities_hu_9ebe010280239b77.webp 480w, https://www.cadenzacoda.click/projects/trusted-autonomy/outdoor-capabilities_hu_293cfbb5aac657cc.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp"
+width="760"
+height="428"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="planning-and-control-optimal-path-following-from-map-and-user-input"&gt;Planning and Control: Optimal Path-Following from Map and User Input&lt;/h3&gt;
+&lt;p&gt;The planning module uses the environment map and user-input destination waypoints to plan a route for the SQUIG vehicle to autonomously navigate. This path optimizes a combination of objectives including travel time, energy consumption, and predicted risk (traversibility of the terrain), while also avoiding obstacles. The user will be able to tune this optimization to change which objectives are prioritized. We currently use PID control to follow this path and will replace this with model predictive control from our fundamental research (see Section 2e). &lt;/p&gt;
+&lt;h3 id="hardware-improving-the-squig-design"&gt;Hardware: Improving the SQUIG Design&lt;/h3&gt;
+&lt;p&gt;During outdoor testing, we identified an issue with a 3D-printed part deforming due to the motors reaching high temperatures. With help from our collaborators at NIWC Pacific (see Section 6), we re-designed the motor mount/motor controller housing to improve temperature control. The new design leverages a single aluminum part that can be easily machined in bulk quantity by water-jet cutting, maintaining the low cost, simple design, and ease of assembly. &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Project Lead&lt;/strong&gt; (Sep 2024 &amp;mdash; Present)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Engineered a rapidly deployable autonomous ground robot capable of exploring, mapping, and navigating previously unseen terrain with minimal setup and low hardware cost for expeditionary missions.&lt;/li&gt;
+&lt;li&gt;Developed an interpretable autonomy stack that converts multi-modal sensor data into human-readable terrain and uncertainty maps to support both autonomous decision-making and operator trust.&lt;/li&gt;
+&lt;li&gt;Implemented online mapping and real-time replanning that adapts navigation as new obstacles and terrain features are discovered during execution.&lt;/li&gt;
+&lt;li&gt;Developed a Python data access layer over ROS2 bag files (SQLite), enabling SQL-style queries for efficient extraction and analysis of logged autonomy data.&lt;/li&gt;
+&lt;li&gt;Deployed and maintained the full autonomy stack on embedded onboard compute under real-world constraints, and collaborated with NIWC Pacific human-factors researchers through regular technical reviews.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, ROS 2, SQL, SLAM, YOLO, Semantic Mapping, CasADi, Jetson Orin&lt;/p&gt;</description></item></channel></rss>

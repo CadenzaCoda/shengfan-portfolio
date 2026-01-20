@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computational Geometry |</title><link>https://www.cadenzacoda.click/tags/computational-geometry/</link><atom:link href="https://www.cadenzacoda.click/tags/computational-geometry/index.xml" rel="self" type="application/rss+xml"/><description>Computational Geometry</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><image><url>https://www.cadenzacoda.click/media/icon_hu_982c5d63a71b2961.png</url><title>Computational Geometry</title><link>https://www.cadenzacoda.click/tags/computational-geometry/</link></image><item><title>Continuous Offset-Based Coverage Paths for Planar Regions</title><link>https://www.cadenzacoda.click/projects/path-generation/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>https://www.cadenzacoda.click/projects/path-generation/</guid><description>&lt;h2 id="undergraduate-research-project-2022"&gt;Undergraduate research project, 2022&lt;/h2&gt;
+&lt;h3 id="key-ideas-explored"&gt;Key ideas explored&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A geometric distinction between local and global self-intersections in contour-parallel offset curves, and how they affect coverage continuity.&lt;/li&gt;
+&lt;li&gt;Use of medial-axis width structure to reason about when offsetting causes a region to split, and how modifying width can prevent topological disconnection.&lt;/li&gt;
+&lt;li&gt;A simple pre-processing technique that converts a family of offset loops into a single spiral-like continuous path.&lt;/li&gt;
+&lt;li&gt;Identification of sharp-turn regions induced by offsetting and localized smoothing without globally altering equidistance.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Local vs. Global Self-intersections"
+srcset="https://www.cadenzacoda.click/projects/path-generation/featured_hu_9abd05438aa8630d.webp 320w, https://www.cadenzacoda.click/projects/path-generation/featured_hu_cd60c44e504e0c85.webp 480w, https://www.cadenzacoda.click/projects/path-generation/featured_hu_61e622546560a76f.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/path-generation/featured_hu_9abd05438aa8630d.webp"
+width="760"
+height="385"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="GSI-elimination"
+srcset="https://www.cadenzacoda.click/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp 320w, https://www.cadenzacoda.click/projects/path-generation/GSI-elimination_hu_159081d594e4a1d7.webp 480w, https://www.cadenzacoda.click/projects/path-generation/GSI-elimination_hu_78070d2a2914fc2a.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp"
+width="760"
+height="462"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="spiral curve generation example"
+srcset="https://www.cadenzacoda.click/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp 320w, https://www.cadenzacoda.click/projects/path-generation/spiral-curve-generation_hu_1f3db072e85aec7a.webp 480w, https://www.cadenzacoda.click/projects/path-generation/spiral-curve-generation_hu_47b1756c6604c488.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://www.cadenzacoda.click/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp"
+width="760"
+height="286"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="limitations-and-scope"&gt;Limitations and scope&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;This work does not claim empirical superiority over existing infill or coverage strategies used in modern additive manufacturing.&lt;/li&gt;
+&lt;li&gt;The approach prioritizes geometric continuity over material optimality, and is most relevant to contexts where uniform coverage and motion smoothness dominate.&lt;/li&gt;
+&lt;li&gt;The algorithms are primarily geometric and exploratory; no large-scale benchmarking or hardware validation was performed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote class="border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 italic text-neutral-600 dark:text-neutral-400 my-6"&gt;
+&lt;p&gt;In hindsight, this project shaped how I think about the relationship between geometric structure, modeling assumptions, and real-world relevance. Many of the limitations of this work informed my later focus on formally scoped, validated methods in safe learning and control.&lt;/p&gt;
+&lt;/blockquote&gt;</description></item></channel></rss>

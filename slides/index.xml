@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Slides |</title><link>https://www.cadenzacoda.click/slides/</link><atom:link href="https://www.cadenzacoda.click/slides/index.xml" rel="self" type="application/rss+xml"/><description>Slides</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate><image><url>https://www.cadenzacoda.click/media/icon_hu_982c5d63a71b2961.png</url><title>Slides</title><link>https://www.cadenzacoda.click/slides/</link></image><item><title>Example Slides</title><link>https://www.cadenzacoda.click/slides/example/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.cadenzacoda.click/slides/example/</guid><description>&lt;h1 id="slide-1"&gt;Slide 1&lt;/h1&gt;
+&lt;p&gt;Welcome to my presentation.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="slide-2"&gt;Slide 2&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Point 1&lt;/li&gt;
+&lt;li&gt;Point 2&lt;/li&gt;
+&lt;li&gt;Point 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id="slide-3"&gt;Slide 3&lt;/h1&gt;
+&lt;p&gt;Thank you!&lt;/p&gt;</description></item></channel></rss>

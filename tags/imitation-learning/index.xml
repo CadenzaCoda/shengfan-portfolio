@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Imitation Learning |</title><link>https://www.cadenzacoda.click/tags/imitation-learning/</link><atom:link href="https://www.cadenzacoda.click/tags/imitation-learning/index.xml" rel="self" type="application/rss+xml"/><description>Imitation Learning</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 01 Dec 2025 00:00:00 +0000</lastBuildDate><image><url>https://www.cadenzacoda.click/media/icon_hu_982c5d63a71b2961.png</url><title>Imitation Learning</title><link>https://www.cadenzacoda.click/tags/imitation-learning/</link></image><item><title>State-Conditional Adversarial Learning: An Off-Policy Visual Domain Transfer Method for End-to-End Imitation Learning</title><link>https://www.cadenzacoda.click/publications/state-conditional-adversarial-learning/</link><pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate><guid>https://www.cadenzacoda.click/publications/state-conditional-adversarial-learning/</guid><description/></item><item><title>A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing</title><link>https://www.cadenzacoda.click/publications/constraint-aware-imitation-learning/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>https://www.cadenzacoda.click/publications/constraint-aware-imitation-learning/</guid><description>&lt;hr&gt;
+&lt;h1 id="why-cail-works-a-probabilistic-view-of-safety-filtering"&gt;Why CAIL Works: A Probabilistic View of Safety Filtering&lt;/h1&gt;
+&lt;p&gt;This note explains &lt;strong&gt;why CAIL works&lt;/strong&gt;, not by introducing a new mechanism, but by showing that its loss function is the natural consequence of treating safety as &lt;em&gt;probabilistic action filtering&lt;/em&gt;. The goal is to make explicit the conceptual assumptions that are often left implicit in safety-filtered imitation learning.&lt;/p&gt;
+&lt;p&gt;The explanation proceeds slowly and deliberately: we first categorize common safety mechanisms, then unify them through a distributional lens, reinterpret safety filtering as Bayesian inference, and finally derive the CAIL objective as maximum a posteriori (MAP) inference under this model.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="1-three-ways-people-make-policies-safe"&gt;1. Three ways people make policies safe&lt;/h2&gt;
+&lt;p&gt;Most safety mechanisms for learned policies can be grouped into three broad classes, based on how they modify the action produced by a policy.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Action masking.&lt;/strong&gt;&lt;br&gt;
+Unsafe actions are removed from the action space entirely, assigning them zero probability.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Action projection.&lt;/strong&gt;&lt;br&gt;
+The policy output is projected onto a constraint-satisfying set, typically defined by state or control constraints.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Action replacement.&lt;/strong&gt;&lt;br&gt;
+If the policy action is deemed unsafe, it is replaced by an alternative action that satisfies safety requirements.&lt;/p&gt;
+&lt;p&gt;At first glance, these approaches appear fundamentally different. In practice, they all share the same structure:&lt;br&gt;
+they intervene &lt;em&gt;after&lt;/em&gt; the policy has produced an action, modifying what is ultimately executed.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="2-a-unifying-view-modifying-an-action-distribution"&gt;2. A unifying view: modifying an action distribution&lt;/h2&gt;
+&lt;p&gt;Instead of reasoning directly in terms of actions, it is more revealing to reason in terms of &lt;strong&gt;distributions&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;A stochastic policy defines a conditional distribution over actions:
+&lt;/p&gt;
+\[
+p(a \mid s).
+\]&lt;p&gt;Each of the mechanisms above modifies this distribution:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;masking sets probability mass to zero,&lt;/li&gt;
+&lt;li&gt;projection collapses mass onto a feasible subset,&lt;/li&gt;
+&lt;li&gt;replacement redistributes mass toward safer actions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Seen this way, all three methods act as &lt;strong&gt;filters on the policy’s action distribution&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;This observation suggests that safety mechanisms can be understood as operating not on individual actions, but on &lt;em&gt;distributions&lt;/em&gt; over actions.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="3-safety-filtering-as-bayesian-inference"&gt;3. Safety filtering as Bayesian inference&lt;/h2&gt;
+&lt;p&gt;The distributional view admits a probabilistic reinterpretation.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The policy provides &lt;em&gt;evidence&lt;/em&gt; about which actions are desirable:
+\[
+p(a \mid s).
+\]&lt;/li&gt;
+&lt;li&gt;Safety defines a &lt;em&gt;prior&lt;/em&gt; over actions:
+\[
+p_{\text{safe}}(a \mid s).
+\]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Conditioning on safety corresponds to Bayesian inference:
+&lt;/p&gt;
+\[
+p(a \mid s, \text{safe})
+\propto
+p(a \mid s)\, p_{\text{safe}}(a \mid s).
+\]&lt;p&gt;Action selection then corresponds to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;sampling from the posterior, or&lt;/li&gt;
+&lt;li&gt;taking its mode (MAP).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Under this view, safety filtering reshapes the action distribution &lt;em&gt;before&lt;/em&gt; an action is selected, rather than enforcing constraints directly.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="4-from-posterior-inference-to-the-cail-objective"&gt;4. From posterior inference to the CAIL objective&lt;/h2&gt;
+&lt;p&gt;We now make this interpretation concrete and show how the CAIL loss arises naturally from MAP inference.&lt;/p&gt;
+&lt;h3 id="41-policy-expert-and-safety-as-distributions"&gt;4.1 Policy, expert, and safety as distributions&lt;/h3&gt;
+&lt;p&gt;Let \( \pi_\theta \) denote a learned policy mapping observations \( y \) to actions.
+We interpret the policy as defining a likelihood over actions:
+&lt;/p&gt;
+\[
+p(a \mid y, \theta).
+\]&lt;p&gt;Assume access to expert demonstrations generated by an imitation policy \( \pi_{\text{IL}} \).
+Under standard behavior cloning assumptions, this corresponds to a Gaussian likelihood centered at the expert action:
+&lt;/p&gt;
+\[
+p(a \mid y, \theta)
+\propto
+\exp\!\left(-\|\pi_\theta(y) - \pi_{\text{IL}}(y)\|_2^2\right).
+\]&lt;p&gt;Safety is modeled independently.
+Given dynamics \( f \), state \( x \), and action \( a \), define the safety event:
+&lt;/p&gt;
+\[
+f(x, a) \in \mathcal{R}_\infty^B(\mathcal{X}_f),
+\]&lt;p&gt;
+and associate with it a probability
+&lt;/p&gt;
+\[
+p\!\left(f(x, a) \in \mathcal{R}_\infty^B(\mathcal{X}_f)\right).
+\]&lt;p&gt;This probability plays the role of a &lt;strong&gt;safety prior over actions&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="42-safety-conditioned-posterior-over-actions"&gt;4.2 Safety-conditioned posterior over actions&lt;/h3&gt;
+&lt;p&gt;Conditioning the policy on safety yields the posterior:
+&lt;/p&gt;
+\[
+p(a \mid y, \text{safe})
+\propto
+p(a \mid y, \theta)\;
+p\!\left(f(x, a) \in \mathcal{R}_\infty^B(\mathcal{X}_f)\right)^{\lambda},
+\]&lt;p&gt;
+where \( \lambda \) controls the influence of the safety prior.&lt;/p&gt;
+&lt;p&gt;The action executed by the controller is the MAP estimate:
+&lt;/p&gt;
+\[
+a^\star = \arg\max_a \log p(a \mid y, \theta) + \lambda \log p\!\left(f(x, a) \in \mathcal{R}_\infty^B(\mathcal{X}_f)\right).
+\]&lt;hr&gt;
+&lt;h3 id="43-map-inference-as-loss-minimization"&gt;4.3 MAP inference as loss minimization&lt;/h3&gt;
+&lt;p&gt;Substituting the Gaussian imitation likelihood, MAP inference becomes:
+&lt;/p&gt;
+\[
+a^\star = \arg\min_a \Big[\|\pi_\theta(y) - \pi_{\text{IL}}(y)\|_2^2 - \lambda \log p\!\left(f(x, a) \in \mathcal{R}_\infty^B(\mathcal{X}_f)\right) \Big].
+\]&lt;p&gt;Training the policy corresponds to minimizing the expected negative log-posterior over the data distribution:
+&lt;/p&gt;
+$$
+\begin{align*}
+\theta^{\star}_{\text{CA}} = \argmin_{\theta} \mathbb{E}_{(x, y) \sim P((x, y) \mid \theta)} \Big[&amp;\underbrace{\|\pi_\theta(y) - \pi_\beta(x)\|_2^2}_{\mathcal{L}_{\text{clone}}}\\
+&amp;+ \underbrace{ \big( - \lambda \log p(f(x, \pi_\theta(y)) \in \mathcal{R}_\infty^B(\mathcal{X}_f)) \big)}_{\mathcal{L}_{\text{safety}}} \Big].
+\end{align*}
+$$&lt;p&gt;This is exactly the CAIL loss.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="44-interpretation"&gt;4.4 Interpretation&lt;/h3&gt;
+&lt;p&gt;Under this view, CAIL is not a heuristic combination of imitation and safety penalties.
+It is the &lt;strong&gt;negative log-posterior&lt;/strong&gt; resulting from MAP inference with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a Gaussian imitation likelihood, and&lt;/li&gt;
+&lt;li&gt;a probabilistic prior encoding safety of future trajectories.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Safety is enforced by reshaping the action distribution itself, rather than by imposing hard constraints.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="5-interpreting-the-role-of"&gt;5. Interpreting the role of \( \lambda \)&lt;/h2&gt;
+&lt;p&gt;With the loss derived, the role of \( \lambda \) becomes precise.&lt;/p&gt;
+&lt;p&gt;In the Bayesian interpretation, \( \lambda \) determines the &lt;strong&gt;relative confidence&lt;/strong&gt; placed in the safety prior versus the imitation likelihood.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Small \( \lambda \): the posterior remains close to the imitation policy.&lt;/li&gt;
+&lt;li&gt;Large \( \lambda \): the posterior concentrates on actions with high safety probability.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Importantly, \( \lambda \) is not merely a tuning weight.
+It governs how aggressively safety evidence is accumulated during posterior inference.&lt;/p&gt;
+&lt;p&gt;This also explains why applying safety filtering multiple times is equivalent to increasing \( \lambda \):
+each pass sharpens the posterior by repeatedly re-weighting with the same safety prior.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;At this point, we have shown that CAIL arises naturally from a probabilistic interpretation of safety filtering, and that its objective has a clear Bayesian meaning. This perspective provides a foundation for understanding extensions, limitations, and connections to other safety mechanisms, which will be discussed next.&lt;/p&gt;</description></item><item><title>Safe Imitation Learning at Handling Limits</title><link>https://www.cadenzacoda.click/projects/safe-imitation-learning/</link><pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate><guid>https://www.cadenzacoda.click/projects/safe-imitation-learning/</guid><description>&lt;p&gt;&lt;strong&gt;Principal Researcher&lt;/strong&gt; (Nov 2024 &amp;mdash; Feb 2025)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Designed a constraint-aware imitation learning framework incorporating an actor-critic structure for explicit safety modeling.&lt;/li&gt;
+&lt;li&gt;Improved training efficiency by 150% and reduced collision rates by 60% at the vehicle’s dynamic handling limits in CARLA simulation.&lt;/li&gt;
+&lt;li&gt;Integrated reachability-based safety filters into the training pipeline, enabling safe policy generalization.&lt;/li&gt;
+&lt;li&gt;Oral presentation at IEEE IROS 2025 for this work: “&lt;em&gt;A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing&lt;/em&gt;”.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, CasADi, CARLA, RL, MPC, optimization, safety-aware learning.&lt;/p&gt;</description></item></channel></rss>
