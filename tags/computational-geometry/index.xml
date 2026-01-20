@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computational Geometry |</title><link>/tags/computational-geometry/</link><atom:link href="/tags/computational-geometry/index.xml" rel="self" type="application/rss+xml"/><description>Computational Geometry</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><image><url>/media/icon_hu_982c5d63a71b2961.png</url><title>Computational Geometry</title><link>/tags/computational-geometry/</link></image><item><title>Continuous Offset-Based Coverage Paths for Planar Regions</title><link>/projects/path-generation/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>/projects/path-generation/</guid><description>&lt;h2 id="undergraduate-research-project-2022"&gt;Undergraduate research project, 2022&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computational Geometry |</title><link>https://cadenzacoda.github.io/portfolio/tags/computational-geometry/</link><atom:link href="https://cadenzacoda.github.io/portfolio/tags/computational-geometry/index.xml" rel="self" type="application/rss+xml"/><description>Computational Geometry</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_982c5d63a71b2961.png</url><title>Computational Geometry</title><link>https://cadenzacoda.github.io/portfolio/tags/computational-geometry/</link></image><item><title>Continuous Offset-Based Coverage Paths for Planar Regions</title><link>https://cadenzacoda.github.io/portfolio/projects/path-generation/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/path-generation/</guid><description>&lt;h2 id="undergraduate-research-project-2022"&gt;Undergraduate research project, 2022&lt;/h2&gt;
 &lt;h3 id="key-ideas-explored"&gt;Key ideas explored&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;A geometric distinction between local and global self-intersections in contour-parallel offset curves, and how they affect coverage continuity.&lt;/li&gt;
@@ -11,9 +11,9 @@
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Local vs. Global Self-intersections"
-srcset="/projects/path-generation/featured_hu_9abd05438aa8630d.webp 320w, /projects/path-generation/featured_hu_cd60c44e504e0c85.webp 480w, /projects/path-generation/featured_hu_61e622546560a76f.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_9abd05438aa8630d.webp 320w, https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_cd60c44e504e0c85.webp 480w, https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_61e622546560a76f.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/path-generation/featured_hu_9abd05438aa8630d.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_9abd05438aa8630d.webp"
 width="760"
 height="385"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -22,9 +22,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="GSI-elimination"
-srcset="/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp 320w, /projects/path-generation/GSI-elimination_hu_159081d594e4a1d7.webp 480w, /projects/path-generation/GSI-elimination_hu_78070d2a2914fc2a.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp 320w, https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_159081d594e4a1d7.webp 480w, https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_78070d2a2914fc2a.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp"
 width="760"
 height="462"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -33,9 +33,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="spiral curve generation example"
-srcset="/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp 320w, /projects/path-generation/spiral-curve-generation_hu_1f3db072e85aec7a.webp 480w, /projects/path-generation/spiral-curve-generation_hu_47b1756c6604c488.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp 320w, https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_1f3db072e85aec7a.webp 480w, https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_47b1756c6604c488.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp"
 width="760"
 height="286"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;

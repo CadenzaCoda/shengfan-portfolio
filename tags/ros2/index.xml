@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ROS2 |</title><link>/tags/ros2/</link><atom:link href="/tags/ros2/index.xml" rel="self" type="application/rss+xml"/><description>ROS2</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><image><url>/media/icon_hu_982c5d63a71b2961.png</url><title>ROS2</title><link>/tags/ros2/</link></image><item><title>Trusted Autonomy for Rapidly Prototyped Uncrewed Ground Vehicles</title><link>/projects/trusted-autonomy/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>/projects/trusted-autonomy/</guid><description>&lt;h2 id="project-summary"&gt;Project Summary&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ROS2 |</title><link>https://cadenzacoda.github.io/portfolio/tags/ros2/</link><atom:link href="https://cadenzacoda.github.io/portfolio/tags/ros2/index.xml" rel="self" type="application/rss+xml"/><description>ROS2</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_982c5d63a71b2961.png</url><title>ROS2</title><link>https://cadenzacoda.github.io/portfolio/tags/ros2/</link></image><item><title>Trusted Autonomy for Rapidly Prototyped Uncrewed Ground Vehicles</title><link>https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/</guid><description>&lt;h2 id="project-summary"&gt;Project Summary&lt;/h2&gt;
 &lt;h3 id="overview-of-project"&gt;Overview of Project&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt; The Small Quick Integrated Ground Vehicle (SQUIG) vehicle is an autonomous ground vehicle currently under development by the Model Predictive Control (MPC) Lab at the University of California, Berkeley and the Naval Information Warfare Center (NIWC) Pacific. This versatile, low-cost, lightweight platform is designed for outdoor autonomous exploration and de-mining. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Objective:&lt;/strong&gt; The key objectives of this project are technology transfer to NIWC Pacific of advanced model predictive control (MPC) techniques, collaborative design of a user-centric, interpretable autonomy platform, and fundamental research on high-performance autonomy for low-cost autonomous vehicles. &lt;/p&gt;
@@ -8,9 +8,9 @@
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Overview"
-srcset="/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp 320w, /projects/trusted-autonomy/overview_hu_6579ec5928084d3d.webp 480w, /projects/trusted-autonomy/overview_hu_16f8c38731799e59.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_6579ec5928084d3d.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_16f8c38731799e59.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -22,9 +22,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Hardware Components of SQUIG"
-srcset="/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp 320w, /projects/trusted-autonomy/components_hu_314a9a9d97c9b82.webp 480w, /projects/trusted-autonomy/components_hu_c4f740814c2ce769.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_314a9a9d97c9b82.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_c4f740814c2ce769.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -36,9 +36,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Architecture"
-srcset="/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp 320w, /projects/trusted-autonomy/architecture_hu_347299cd6f1e9b0c.webp 480w, /projects/trusted-autonomy/architecture_hu_a58480af539931bd.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_347299cd6f1e9b0c.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_a58480af539931bd.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -51,9 +51,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Outdoor capabilities of SQUIG"
-srcset="/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp 320w, /projects/trusted-autonomy/outdoor-capabilities_hu_9ebe010280239b77.webp 480w, /projects/trusted-autonomy/outdoor-capabilities_hu_293cfbb5aac657cc.webp 760w"
+srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_9ebe010280239b77.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_293cfbb5aac657cc.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp"
+src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
