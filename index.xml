@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://cadenzacoda.github.io/portfolio/</link><atom:link href="https://cadenzacoda.github.io/portfolio/index.xml" rel="self" type="application/rss+xml"/><description/><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_982c5d63a71b2961.png</url><title/><link>https://cadenzacoda.github.io/portfolio/</link></image><item><title>Constrained Policy Optimization via Sampling-Based Weight-Space Projection</title><link>https://cadenzacoda.github.io/portfolio/publications/constrained-policy-optimization/</link><pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/publications/constrained-policy-optimization/</guid><description/></item><item><title>State-Conditional Adversarial Learning: An Off-Policy Visual Domain Transfer Method for End-to-End Imitation Learning</title><link>https://cadenzacoda.github.io/portfolio/publications/state-conditional-adversarial-learning/</link><pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/publications/state-conditional-adversarial-learning/</guid><description/></item><item><title>Sampling-Based Constrained Policy Optimization</title><link>https://cadenzacoda.github.io/portfolio/projects/constrained-policy-opt/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/constrained-policy-opt/</guid><description>&lt;p&gt;&lt;strong&gt;Principal Researcher&lt;/strong&gt; (Sep 2025 &amp;mdash; Dec 2025)&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>/</link><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><description/><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>/media/icon_hu_982c5d63a71b2961.png</url><title/><link>/</link></image><item><title>Constrained Policy Optimization via Sampling-Based Weight-Space Projection</title><link>/publications/constrained-policy-optimization/</link><pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate><guid>/publications/constrained-policy-optimization/</guid><description/></item><item><title>State-Conditional Adversarial Learning: An Off-Policy Visual Domain Transfer Method for End-to-End Imitation Learning</title><link>/publications/state-conditional-adversarial-learning/</link><pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate><guid>/publications/state-conditional-adversarial-learning/</guid><description/></item><item><title>Sampling-Based Constrained Policy Optimization</title><link>/projects/constrained-policy-opt/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>/projects/constrained-policy-opt/</guid><description>&lt;p&gt;&lt;strong&gt;Principal Researcher&lt;/strong&gt; (Sep 2025 &amp;mdash; Dec 2025)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Proposed a sampling-based weight-space projection framework for enforcing safety constraints during policy updates, enabling scalable safe learning for large neural policies.&lt;/li&gt;
 &lt;li&gt;Formulated policy optimization as a convex projection in parameter space, with theoretical guarantees that projected updates preserve objective improvement.&lt;/li&gt;
 &lt;li&gt;Derived a sufficient stability condition linking weight updates to closed-loop constraint satisfaction, and embedded it directly into the optimization pipeline.&lt;/li&gt;
 &lt;li&gt;Empirically demonstrated complete rejection of harmful supervision and safe performance gains in regression and imitation learning under adversarial experts.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, Convex Optimization, Reinforcement Learning, Safe Learning.&lt;/p&gt;</description></item><item><title>A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing</title><link>https://cadenzacoda.github.io/portfolio/publications/constraint-aware-imitation-learning/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/publications/constraint-aware-imitation-learning/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, Convex Optimization, Reinforcement Learning, Safe Learning.&lt;/p&gt;</description></item><item><title>A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing</title><link>/publications/constraint-aware-imitation-learning/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>/publications/constraint-aware-imitation-learning/</guid><description>&lt;hr&gt;
 &lt;h1 id="why-cail-works-a-probabilistic-view-of-safety-filtering"&gt;Why CAIL Works: A Probabilistic View of Safety Filtering&lt;/h1&gt;
 &lt;p&gt;This note explains &lt;strong&gt;why CAIL works&lt;/strong&gt;, not by introducing a new mechanism, but by showing that its loss function is the natural consequence of treating safety as &lt;em&gt;probabilistic action filtering&lt;/em&gt;. The goal is to make explicit the conceptual assumptions that are often left implicit in safety-filtered imitation learning.&lt;/p&gt;
 &lt;p&gt;The explanation proceeds slowly and deliberately: we first categorize common safety mechanisms, then unify them through a distributional lens, reinterpret safety filtering as Bayesian inference, and finally derive the CAIL objective as maximum a posteriori (MAP) inference under this model.&lt;/p&gt;
@@ -138,7 +138,7 @@ It governs how aggressively safety evidence is accumulated during posterior infe
 &lt;p&gt;This also explains why applying safety filtering multiple times is equivalent to increasing \( \lambda \):
 each pass sharpens the posterior by repeatedly re-weighting with the same safety prior.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;At this point, we have shown that CAIL arises naturally from a probabilistic interpretation of safety filtering, and that its objective has a clear Bayesian meaning. This perspective provides a foundation for understanding extensions, limitations, and connections to other safety mechanisms, which will be discussed next.&lt;/p&gt;</description></item><item><title>Paper Accepted at IROS 2025</title><link>https://cadenzacoda.github.io/portfolio/blog/paper-news/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/blog/paper-news/</guid><description>&lt;p&gt;I am excited to share that my paper &amp;ldquo;A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing&amp;rdquo; has been accepted for oral presentation at IROS 2025!&lt;/p&gt;</description></item><item><title>Welcome to my new site!</title><link>https://cadenzacoda.github.io/portfolio/blog/example-post/</link><pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/blog/example-post/</guid><description>&lt;p&gt;Welcome to my academic website. This is a placeholder post. I will be sharing updates about my research and projects here.&lt;/p&gt;</description></item><item><title>Example Slides</title><link>https://cadenzacoda.github.io/portfolio/slides/example/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/slides/example/</guid><description>&lt;h1 id="slide-1"&gt;Slide 1&lt;/h1&gt;
+&lt;p&gt;At this point, we have shown that CAIL arises naturally from a probabilistic interpretation of safety filtering, and that its objective has a clear Bayesian meaning. This perspective provides a foundation for understanding extensions, limitations, and connections to other safety mechanisms, which will be discussed next.&lt;/p&gt;</description></item><item><title>Paper Accepted at IROS 2025</title><link>/blog/paper-news/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>/blog/paper-news/</guid><description>&lt;p&gt;I am excited to share that my paper &amp;ldquo;A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing&amp;rdquo; has been accepted for oral presentation at IROS 2025!&lt;/p&gt;</description></item><item><title>Welcome to my new site!</title><link>/blog/example-post/</link><pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate><guid>/blog/example-post/</guid><description>&lt;p&gt;Welcome to my academic website. This is a placeholder post. I will be sharing updates about my research and projects here.&lt;/p&gt;</description></item><item><title>Example Slides</title><link>/slides/example/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>/slides/example/</guid><description>&lt;h1 id="slide-1"&gt;Slide 1&lt;/h1&gt;
 &lt;p&gt;Welcome to my presentation.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id="slide-2"&gt;Slide 2&lt;/h1&gt;
@@ -149,7 +149,7 @@ each pass sharpens the posterior by repeatedly re-weighting with the same safety
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h1 id="slide-3"&gt;Slide 3&lt;/h1&gt;
-&lt;p&gt;Thank you!&lt;/p&gt;</description></item><item><title>Real-Time Regulation-Aware Game-Theoretic Motion Planning for Head-to-Head Autonomous Racing</title><link>https://cadenzacoda.github.io/portfolio/publications/regulation-aware-motion-planning/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/publications/regulation-aware-motion-planning/</guid><description/></item><item><title>Vehicle Dynamics Simulator (Barc Gym)</title><link>https://cadenzacoda.github.io/portfolio/projects/vehicle-dynamics-simulator/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/vehicle-dynamics-simulator/</guid><description>&lt;p&gt;&lt;strong&gt;Graduate Student Instructor Project&lt;/strong&gt; (Jan 2025 &amp;mdash; May 2025)&lt;/p&gt;
+&lt;p&gt;Thank you!&lt;/p&gt;</description></item><item><title>Real-Time Regulation-Aware Game-Theoretic Motion Planning for Head-to-Head Autonomous Racing</title><link>/publications/regulation-aware-motion-planning/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>/publications/regulation-aware-motion-planning/</guid><description/></item><item><title>Vehicle Dynamics Simulator (Barc Gym)</title><link>/projects/vehicle-dynamics-simulator/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>/projects/vehicle-dynamics-simulator/</guid><description>&lt;p&gt;&lt;strong&gt;Graduate Student Instructor Project&lt;/strong&gt; (Jan 2025 &amp;mdash; May 2025)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Developed a lightweight vehicle dynamics simulator based on the dynamic bicycle model, providing standard OpenAI Gymnasium APIs for reinforcement learning and control tasks.&lt;/li&gt;
 &lt;li&gt;Implemented a connector to interface with the CARLA simulator, allowing seamless transition between simple dynamics models and high-fidelity physics simulations.&lt;/li&gt;
@@ -162,7 +162,7 @@ each pass sharpens the posterior by repeatedly re-weighting with the same safety
 &lt;p class="hb-notebook-title"&gt;Vehicle_Dynamics_Simulator.ipynb&lt;/p&gt;
 &lt;p class="hb-notebook-subtitle"&gt;Python · Kernel: Python 3 · nbformat 4 · 40 cells&lt;/p&gt;
 &lt;/div&gt;
-&lt;a class="hb-notebook-download" href="https://cadenzacoda.github.io/portfolio/projects/vehicle-dynamics-simulator/Vehicle_Dynamics_Simulator.ipynb" download&gt;
+&lt;a class="hb-notebook-download" href="/projects/vehicle-dynamics-simulator/Vehicle_Dynamics_Simulator.ipynb" download&gt;
 &lt;svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"&gt;&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/&gt;&lt;/svg&gt;
 &lt;span&gt;Download notebook&lt;/span&gt;
 &lt;/a&gt;
@@ -2260,14 +2260,14 @@ Saving computed raceline to raceline.npz
 &lt;div class="sr-only" data-hb-component="notebook" data-hb-version="1.0" data-hb-license="MIT"&gt;
 Powered by Hugo Blox Kit - https://github.com/HugoBlox/kit
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>Safe Imitation Learning at Handling Limits</title><link>https://cadenzacoda.github.io/portfolio/projects/safe-imitation-learning/</link><pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/safe-imitation-learning/</guid><description>&lt;p&gt;&lt;strong&gt;Principal Researcher&lt;/strong&gt; (Nov 2024 &amp;mdash; Feb 2025)&lt;/p&gt;
+&lt;/div&gt;</description></item><item><title>Safe Imitation Learning at Handling Limits</title><link>/projects/safe-imitation-learning/</link><pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate><guid>/projects/safe-imitation-learning/</guid><description>&lt;p&gt;&lt;strong&gt;Principal Researcher&lt;/strong&gt; (Nov 2024 &amp;mdash; Feb 2025)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Designed a constraint-aware imitation learning framework incorporating an actor-critic structure for explicit safety modeling.&lt;/li&gt;
 &lt;li&gt;Improved training efficiency by 150% and reduced collision rates by 60% at the vehicle’s dynamic handling limits in CARLA simulation.&lt;/li&gt;
 &lt;li&gt;Integrated reachability-based safety filters into the training pipeline, enabling safe policy generalization.&lt;/li&gt;
 &lt;li&gt;Oral presentation at IEEE IROS 2025 for this work: “&lt;em&gt;A Simple Approach to Constraint-Aware Imitation Learning with Application to Autonomous Racing&lt;/em&gt;”.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, CasADi, CARLA, RL, MPC, optimization, safety-aware learning.&lt;/p&gt;</description></item><item><title>Trusted Autonomy for Rapidly Prototyped Uncrewed Ground Vehicles</title><link>https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/</guid><description>&lt;h2 id="project-summary"&gt;Project Summary&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, CasADi, CARLA, RL, MPC, optimization, safety-aware learning.&lt;/p&gt;</description></item><item><title>Trusted Autonomy for Rapidly Prototyped Uncrewed Ground Vehicles</title><link>/projects/trusted-autonomy/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>/projects/trusted-autonomy/</guid><description>&lt;h2 id="project-summary"&gt;Project Summary&lt;/h2&gt;
 &lt;h3 id="overview-of-project"&gt;Overview of Project&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt; The Small Quick Integrated Ground Vehicle (SQUIG) vehicle is an autonomous ground vehicle currently under development by the Model Predictive Control (MPC) Lab at the University of California, Berkeley and the Naval Information Warfare Center (NIWC) Pacific. This versatile, low-cost, lightweight platform is designed for outdoor autonomous exploration and de-mining. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Objective:&lt;/strong&gt; The key objectives of this project are technology transfer to NIWC Pacific of advanced model predictive control (MPC) techniques, collaborative design of a user-centric, interpretable autonomy platform, and fundamental research on high-performance autonomy for low-cost autonomous vehicles. &lt;/p&gt;
@@ -2277,9 +2277,9 @@ Powered by Hugo Blox Kit - https://github.com/HugoBlox/kit
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Overview"
-srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_6579ec5928084d3d.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_16f8c38731799e59.webp 760w"
+srcset="/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp 320w, /projects/trusted-autonomy/overview_hu_6579ec5928084d3d.webp 480w, /projects/trusted-autonomy/overview_hu_16f8c38731799e59.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp"
+src="/projects/trusted-autonomy/overview_hu_247790f71d46f71f.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -2291,9 +2291,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Hardware Components of SQUIG"
-srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_314a9a9d97c9b82.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_c4f740814c2ce769.webp 760w"
+srcset="/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp 320w, /projects/trusted-autonomy/components_hu_314a9a9d97c9b82.webp 480w, /projects/trusted-autonomy/components_hu_c4f740814c2ce769.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp"
+src="/projects/trusted-autonomy/components_hu_200708a5180d0e55.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -2305,9 +2305,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Architecture"
-srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_347299cd6f1e9b0c.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_a58480af539931bd.webp 760w"
+srcset="/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp 320w, /projects/trusted-autonomy/architecture_hu_347299cd6f1e9b0c.webp 480w, /projects/trusted-autonomy/architecture_hu_a58480af539931bd.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp"
+src="/projects/trusted-autonomy/architecture_hu_f743dea1f45a09ad.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -2320,9 +2320,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Outdoor capabilities of SQUIG"
-srcset="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp 320w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_9ebe010280239b77.webp 480w, https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_293cfbb5aac657cc.webp 760w"
+srcset="/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp 320w, /projects/trusted-autonomy/outdoor-capabilities_hu_9ebe010280239b77.webp 480w, /projects/trusted-autonomy/outdoor-capabilities_hu_293cfbb5aac657cc.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp"
+src="/projects/trusted-autonomy/outdoor-capabilities_hu_d16226e66eba197a.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -2341,7 +2341,7 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;li&gt;Developed a Python data access layer over ROS2 bag files (SQLite), enabling SQL-style queries for efficient extraction and analysis of logged autonomy data.&lt;/li&gt;
 &lt;li&gt;Deployed and maintained the full autonomy stack on embedded onboard compute under real-world constraints, and collaborated with NIWC Pacific human-factors researchers through regular technical reviews.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, ROS 2, SQL, SLAM, YOLO, Semantic Mapping, CasADi, Jetson Orin&lt;/p&gt;</description></item><item><title>Vision-based End-to-end Control for Racing</title><link>https://cadenzacoda.github.io/portfolio/projects/vision-control-racing/</link><pubDate>Wed, 01 Nov 2023 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/vision-control-racing/</guid><description>&lt;p&gt;This project investigates the feasibility of end-to-end vision-based control for high-speed autonomous racing. We develop a CNN-based feedback policy that maps onboard RGB images and wheel encoder feedback directly to steering and throttle commands, without relying on explicit mapping, localization, or global state estimation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, ROS 2, SQL, SLAM, YOLO, Semantic Mapping, CasADi, Jetson Orin&lt;/p&gt;</description></item><item><title>Vision-based End-to-end Control for Racing</title><link>/projects/vision-control-racing/</link><pubDate>Wed, 01 Nov 2023 00:00:00 +0000</pubDate><guid>/projects/vision-control-racing/</guid><description>&lt;p&gt;This project investigates the feasibility of end-to-end vision-based control for high-speed autonomous racing. We develop a CNN-based feedback policy that maps onboard RGB images and wheel encoder feedback directly to steering and throttle commands, without relying on explicit mapping, localization, or global state estimation.&lt;/p&gt;
 &lt;p&gt;The policy is trained via imitation learning from an oracle Model Predictive Contouring Control (MPCC) expert with full-state access. Despite the significant sensing mismatch between the expert and the learned policy, the resulting controller demonstrates stable and aggressive driving behavior near the vehicle’s dynamic handling limits. The system is deployed on a 1:10 scale autonomous RC car equipped with a Jetson platform and a fully onboard ROS stack.&lt;/p&gt;
 &lt;p&gt;Extensive evaluation is conducted both in simulation (CARLA) and on hardware. In real-world experiments, the learned policy achieves sustained high-speed rollouts—up to 80 consecutive laps—without constraint violations, and exhibits improved consistency compared to traditional SLAM-based pipelines. These results highlight the potential of imitation learning as a practical pathway toward robust vision-based control for autonomous driving in dynamic regimes.&lt;/p&gt;
 &lt;blockquote class="border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 italic text-neutral-600 dark:text-neutral-400 my-6"&gt;
@@ -2355,7 +2355,7 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;li&gt;Designed and executed systematic policy evaluation in CARLA under various conditions (e.g., weather, lighting), measuring success rates and failure modes across diverse initial conditions to assess robustness near dynamic handling limits.&lt;/li&gt;
 &lt;li&gt;Achieved long rollouts (80 laps at high speed) without constraint violation and improved consistency in performance compared to traditional SLAM-based pipelines across 10+ field tests.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, CasADi, ROS, OpenCV, SLAM, RL, NVIDIA Jetson, real-time control.&lt;/p&gt;</description></item><item><title>Experience</title><link>https://cadenzacoda.github.io/portfolio/experience/</link><pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/experience/</guid><description/></item><item><title>Continuous Offset-Based Coverage Paths for Planar Regions</title><link>https://cadenzacoda.github.io/portfolio/projects/path-generation/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/path-generation/</guid><description>&lt;h2 id="undergraduate-research-project-2022"&gt;Undergraduate research project, 2022&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; PyTorch, CasADi, ROS, OpenCV, SLAM, RL, NVIDIA Jetson, real-time control.&lt;/p&gt;</description></item><item><title>Experience</title><link>/experience/</link><pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate><guid>/experience/</guid><description/></item><item><title>Continuous Offset-Based Coverage Paths for Planar Regions</title><link>/projects/path-generation/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>/projects/path-generation/</guid><description>&lt;h2 id="undergraduate-research-project-2022"&gt;Undergraduate research project, 2022&lt;/h2&gt;
 &lt;h3 id="key-ideas-explored"&gt;Key ideas explored&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;A geometric distinction between local and global self-intersections in contour-parallel offset curves, and how they affect coverage continuity.&lt;/li&gt;
@@ -2368,9 +2368,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="Local vs. Global Self-intersections"
-srcset="https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_9abd05438aa8630d.webp 320w, https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_cd60c44e504e0c85.webp 480w, https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_61e622546560a76f.webp 760w"
+srcset="/projects/path-generation/featured_hu_9abd05438aa8630d.webp 320w, /projects/path-generation/featured_hu_cd60c44e504e0c85.webp 480w, /projects/path-generation/featured_hu_61e622546560a76f.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/path-generation/featured_hu_9abd05438aa8630d.webp"
+src="/projects/path-generation/featured_hu_9abd05438aa8630d.webp"
 width="760"
 height="385"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -2379,9 +2379,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="GSI-elimination"
-srcset="https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp 320w, https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_159081d594e4a1d7.webp 480w, https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_78070d2a2914fc2a.webp 760w"
+srcset="/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp 320w, /projects/path-generation/GSI-elimination_hu_159081d594e4a1d7.webp 480w, /projects/path-generation/GSI-elimination_hu_78070d2a2914fc2a.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp"
+src="/projects/path-generation/GSI-elimination_hu_910eb1a9d073bcdc.webp"
 width="760"
 height="462"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
@@ -2390,9 +2390,9 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;div class="flex justify-center "&gt;
 &lt;div class="w-full" &gt;
 &lt;img alt="spiral curve generation example"
-srcset="https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp 320w, https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_1f3db072e85aec7a.webp 480w, https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_47b1756c6604c488.webp 760w"
+srcset="/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp 320w, /projects/path-generation/spiral-curve-generation_hu_1f3db072e85aec7a.webp 480w, /projects/path-generation/spiral-curve-generation_hu_47b1756c6604c488.webp 760w"
 sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
-src="https://cadenzacoda.github.io/portfolio/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp"
+src="/projects/path-generation/spiral-curve-generation_hu_12fc6b7d0d9e9fae.webp"
 width="760"
 height="286"
 loading="lazy" data-zoomable /&gt;&lt;/div&gt;
