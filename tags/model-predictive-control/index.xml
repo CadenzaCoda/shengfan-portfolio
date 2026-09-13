@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Model Predictive Control |</title><link>https://cadenzacoda.github.io/portfolio/tags/model-predictive-control/</link><atom:link href="https://cadenzacoda.github.io/portfolio/tags/model-predictive-control/index.xml" rel="self" type="application/rss+xml"/><description>Model Predictive Control</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 01 May 2023 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_702a800cd775dbac.png</url><title>Model Predictive Control</title><link>https://cadenzacoda.github.io/portfolio/tags/model-predictive-control/</link></image><item><title>Autonomous Rover for Solar Panel Fields (Terabase)</title><link>https://cadenzacoda.github.io/portfolio/projects/terabase-rover/</link><pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/terabase-rover/</guid><description>&lt;p&gt;&lt;strong&gt;Team Member&lt;/strong&gt; (May 2023 &amp;mdash; Aug 2023)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Co-implemented a perception stack on ROS 1 to identify object locations and types around the rover.&lt;/li&gt;
+&lt;li&gt;Assisted in connecting perception outputs with an MPC planner and low-level controller on ROS 2 to enable evasive maneuvers.&lt;/li&gt;
+&lt;li&gt;Debugged on the physical rover and delivered a field demo in Davis.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; ROS 1/2, MPC, YOLO, Python.&lt;/p&gt;</description></item><item><title>Goal-Conditioned Learning MPC</title><link>https://cadenzacoda.github.io/portfolio/projects/goal-conditioned-learning-mpc/</link><pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/goal-conditioned-learning-mpc/</guid><description>&lt;p&gt;&lt;strong&gt;Independent Research&lt;/strong&gt; (May 2023 &amp;mdash; Sep 2023)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Explored a goal-conditioned, data-driven MPC pipeline using feasible closed-loop trajectories to learn transition costs between feasible states via imitation learning.&lt;/li&gt;
+&lt;li&gt;Investigated a two-layer hierarchical architecture: short-horizon reference generation in a planning layer, tracked by MPC in an execution layer.&lt;/li&gt;
+&lt;li&gt;Demonstrated improved long-horizon efficiency in simulation compared to a single-layer MPC baseline.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; Gurobi, CasADi, MPC, Python.&lt;/p&gt;</description></item></channel></rss>

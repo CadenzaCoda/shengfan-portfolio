@@ -88,6 +88,23 @@
       <div class="metrics"><div><strong>50</strong><span>consecutive laps without constraint violation</span></div><div><strong>5.65<span> s</span></strong><span>average lap time at the selected checkpoint</span></div><div><strong>81</strong><span>epoch where early stopping is triggered</span></div></div>
       <p class="result-context">Image-feedback racing, Experiment V-C / Figure 7. These values describe the reported rollout and selected checkpoint, not an average across random seeds. The expert’s average lap time is 4.805 s.</p>
       <figure class="result-figure"><a href="assets/image-racing-results.png" aria-label="Open the original image-feedback racing result figure at full size"><img src="assets/image-racing-results.png" width="1233" height="562" alt="Figure 7: baseline stays below 10 completed laps, while CAIL reaches 50 near epoch 80. Performance varies after that checkpoint. The right panel shows the selected policy's trajectory." loading="lazy"></a><figcaption><span>Figure 7 / Original paper</span>CAIL recovers a policy completing 50 laps within 80 epochs; the baseline does not exceed 10 in the reported experiment. Early stopping occurs at epoch 81.</figcaption></figure>
+
+      <div class="comparison-block">
+        <div class="comparison-heading"><h3>Same track, same checkpoint budget.</h3><p>Muted top-down spectator recordings from the full-state racing experiment (V-B). Both clips are silent CARLA captures; the BC baseline is real time, the CAIL clip is an excerpt from the ~4.7-minute rollout, sped up ~5&times;.</p></div>
+        <div class="comparison-grid">
+          <figure class="comparison-figure">
+            <div class="figure-top"><span>Baseline (BC)</span><span>Real time</span></div>
+            <video src="assets/clip-baseline.mp4" poster="assets/clip-baseline-poster.jpg" autoplay loop muted playsinline aria-label="Behavior-cloning baseline drifting off the track and stopping, in real time"></video>
+            <figcaption>Drifts off track and comes to a stop within ~6.5 seconds.</figcaption>
+          </figure>
+          <figure class="comparison-figure">
+            <div class="figure-top"><span>CAIL (ours)</span><span>~5&times; speed</span></div>
+            <video src="assets/clip-cail.mp4" poster="assets/clip-cail-poster.jpg" autoplay loop muted playsinline aria-label="CAIL policy completing consecutive laps without leaving the track, sped up about 5 times"></video>
+            <figcaption>Sustained lap after lap without leaving the track; opening ~75s of the full 50-lap rollout, sped up ~5&times;.</figcaption>
+          </figure>
+        </div>
+      </div>
+
       <div class="experiment-list"><article><span class="experiment-number">V-A</span><div><h3>Image-feedback path following</h3><p>A PID expert tracks the center line at a conservative speed. Both methods reach 50 laps; CAIL does so in fewer training epochs.</p></div><a href="https://arxiv.org/html/2503.07737v2#S5.SS1" aria-label="Read Experiment V-A">↗</a></article><article><span class="experiment-number">V-B</span><div><h3>Full-state racing</h3><p>An MPCC expert supplies high-speed demonstrations. CAIL recovers a consistently completing policy in fewer epochs, despite slower convergence of imitation loss.</p></div><a href="https://arxiv.org/html/2503.07737v2#S5.SS2" aria-label="Read Experiment V-B">↗</a></article><article><span class="experiment-number">V-C</span><div><h3>Image-feedback racing</h3><p>The policy receives a front-facing RGB image and velocity measurements. CAIL reaches 50 consecutive laps; training variability makes checkpoint selection important.</p></div><a href="https://arxiv.org/html/2503.07737v2#S5.SS3" aria-label="Read Experiment V-C">↗</a></article></div>
       <aside class="scope-note"><h3>What these results establish</h3><p>Empirical improvements in constraint satisfaction in simulation. The learned policy has no formal safety certificate, and physical deployment is not validated in this paper. Evaluation is capped at 50 laps; early stopping is applied when that threshold is reached for the second time.</p></aside>
     </div></section>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ROS |</title><link>https://cadenzacoda.github.io/portfolio/tags/ros/</link><atom:link href="https://cadenzacoda.github.io/portfolio/tags/ros/index.xml" rel="self" type="application/rss+xml"/><description>ROS</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 01 May 2023 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_702a800cd775dbac.png</url><title>ROS</title><link>https://cadenzacoda.github.io/portfolio/tags/ros/</link></image><item><title>Autonomous Rover for Solar Panel Fields (Terabase)</title><link>https://cadenzacoda.github.io/portfolio/projects/terabase-rover/</link><pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/terabase-rover/</guid><description>&lt;p&gt;&lt;strong&gt;Team Member&lt;/strong&gt; (May 2023 &amp;mdash; Aug 2023)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Co-implemented a perception stack on ROS 1 to identify object locations and types around the rover.&lt;/li&gt;
+&lt;li&gt;Assisted in connecting perception outputs with an MPC planner and low-level controller on ROS 2 to enable evasive maneuvers.&lt;/li&gt;
+&lt;li&gt;Debugged on the physical rover and delivered a field demo in Davis.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; ROS 1/2, MPC, YOLO, Python.&lt;/p&gt;</description></item></channel></rss>

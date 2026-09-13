@@ -1,1 +1,111 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Motion Planning |</title><link>https://cadenzacoda.github.io/portfolio/tags/motion-planning/</link><atom:link href="https://cadenzacoda.github.io/portfolio/tags/motion-planning/index.xml" rel="self" type="application/rss+xml"/><description>Motion Planning</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_702a800cd775dbac.png</url><title>Motion Planning</title><link>https://cadenzacoda.github.io/portfolio/tags/motion-planning/</link></image><item><title>Real-Time Regulation-Aware Game-Theoretic Motion Planning for Head-to-Head Autonomous Racing</title><link>https://cadenzacoda.github.io/portfolio/publications/regulation-aware-motion-planning/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/publications/regulation-aware-motion-planning/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Motion Planning |</title><link>https://cadenzacoda.github.io/portfolio/tags/motion-planning/</link><atom:link href="https://cadenzacoda.github.io/portfolio/tags/motion-planning/index.xml" rel="self" type="application/rss+xml"/><description>Motion Planning</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate><image><url>https://cadenzacoda.github.io/portfolio/media/icon_hu_702a800cd775dbac.png</url><title>Motion Planning</title><link>https://cadenzacoda.github.io/portfolio/tags/motion-planning/</link></image><item><title>Trajectory Optimization &amp; Planning at DiDi Research America</title><link>https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/</guid><description>&lt;h2 id="project-summary"&gt;Project Summary&lt;/h2&gt;
+&lt;h3 id="overview"&gt;Overview&lt;/h3&gt;
+&lt;p&gt;During my internship on the Motion Planning team at DiDi Research America, I worked across two systems: a data-driven end-to-end planning model trained on large-scale human-driving data, and a large legacy C++ production trajectory-optimization planner. Both problems reduced to the same core question — how to make constrained trajectory optimization fast, robust, and safe enough to run at scale, whether offline over billions of driving frames or online in a production vehicle stack. I approached both with differential dynamic programming (DDP) formulated as augmented-Lagrangian constrained optimization.&lt;/p&gt;
+&lt;h3 id="the-problem-with-ground-truth-driving-data"&gt;The Problem with &amp;ldquo;Ground Truth&amp;rdquo; Driving Data&lt;/h3&gt;
+&lt;p&gt;The end-to-end planning model is trained on &lt;strong&gt;1.3B human-driving frames&lt;/strong&gt;. It&amp;rsquo;s tempting to treat logged human trajectories as ground truth and imitate them directly. But the logged trajectory &lt;em&gt;is not&lt;/em&gt; the ground truth — it&amp;rsquo;s a noisy observation of it. Position and heading come from GPS+IMU, steering from a steering-angle sensor, acceleration from IMU — each with its own sensor noise (on the order of centimeters in position, hundredths of a radian in heading and steering). Comfort-relevant quantities like jerk and steering rate aren&amp;rsquo;t measured directly at all; they&amp;rsquo;re recovered by finite-differencing the logged signal, which is a high-pass operation that amplifies exactly the noise you&amp;rsquo;re trying to avoid.&lt;/p&gt;
+&lt;p&gt;Learning from the raw modular pipeline&amp;rsquo;s outputs is no better: a traditional perception → prediction → planning pipeline is &lt;em&gt;already&lt;/em&gt; an engineered approximation of good driving, with many hand-tuned objectives and thresholds, and coupled modules that create unpredictable system-level effects. Imitating it just inherits its biases.&lt;/p&gt;
+&lt;h3 id="reformulating-trajectory-cleanup-as-map-inference"&gt;Reformulating Trajectory Cleanup as MAP Inference&lt;/h3&gt;
+&lt;p&gt;My approach: separate what the sensors tell us actually happened from what behavior we&amp;rsquo;d prefer the model to imitate, and combine both into a single inference problem. Factor the trajectory posterior over states $x_k$, measurements $y_k$, and controls $u_k$ into three terms:&lt;/p&gt;
+$$
+\mathbb{P}(z_{0:T-1} \mid y_{0:T-1}) \propto \mathbb{P}(x_0) \prod_{k=0}^{T-1} \underbrace{\mathbb{P}(y_k \mid x_k)}_{\text{observation}} \prod_{k=0}^{T-2} \underbrace{\mathbb{P}(x_{k+1} \mid x_k, u_k)}_{\text{dynamics}} \underbrace{\mathbb{P}(u_k \mid x_k)}_{\text{preference}}
+$$&lt;p&gt;The &lt;strong&gt;observation&lt;/strong&gt; and &lt;strong&gt;dynamics&lt;/strong&gt; terms are defined by the physical world — sensor noise and the vehicle model — so I measured them from sensor specs instead of hand-tuning them. The &lt;strong&gt;preference&lt;/strong&gt; term is where we get to say what behavior we actually want (bounded jerk, small tracking error, smooth control), and I modeled it as a Boltzmann distribution over a cost $J(u)$, so that undesirable actions become exponentially less likely rather than simply forbidden.&lt;/p&gt;
+&lt;p&gt;Taking the negative log and finding the maximum a posteriori (MAP) trajectory turns this into a constrained optimization problem: find the dynamically feasible trajectory that stays statistically close to the recorded measurements, obeys comfort limits, and favors simple, slowly varying controls. I solved this with an augmented-Lagrangian DDP denoiser. In practice, the denoised trajectories cut jerk and lateral-jerk discomfort rates to &lt;strong&gt;0–4% from a baseline of 8–39%&lt;/strong&gt;, while keeping ADE/FDE tracking metrics essentially unchanged from the raw data.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="MAP denoising of a noisy logged trajectory: position, heading, speed, acceleration, steering, and jerk before (red) and after (blue) the denoiser."
+srcset="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/map-denoising-demo_hu_71dbd9c77c005de0.webp 320w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/map-denoising-demo_hu_68d09a48cc947e5.webp 480w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/map-denoising-demo_hu_7a7d66de33aaf34f.webp 608w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/map-denoising-demo_hu_71dbd9c77c005de0.webp"
+width="608"
+height="760"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="diagnosing-constraint-conflicts-with-shadow-prices"&gt;Diagnosing Constraint Conflicts with Shadow Prices&lt;/h3&gt;
+&lt;p&gt;Hard comfort limits and hard geometric constraints don&amp;rsquo;t always agree with the data — a sharp evasive maneuver in the logs might genuinely require jerk beyond the &amp;ldquo;comfortable&amp;rdquo; bound. Rather than hand-picking which constraints to soften for which scenarios, I used the constraints&amp;rsquo; own &lt;strong&gt;shadow prices&lt;/strong&gt; (the Lagrange multipliers from solving the MAP problem with everything as hard constraints) to diagnose conflict automatically: a shadow price tells you how much the optimizer would improve if that constraint were relaxed by one unit, so it directly measures which limits are actively fighting the data and by how much.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Shadow-price diagnosis on a case where the lane-boundary constraint is active: as the optimal path is pushed against the lane edge, its shadow price spikes while the (unbinding) jerk constraints stay at zero."
+srcset="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-lane-active_hu_2ab3c2e3adf5f397.webp 320w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-lane-active_hu_ae3b0edce452fa62.webp 480w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-lane-active_hu_b4d10b6a470124b9.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-lane-active_hu_2ab3c2e3adf5f397.webp"
+width="760"
+height="225"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Shadow-price diagnosis on a case where the jerk constraints are active instead: no lane conflict, but longitudinal and lateral jerk repeatedly saturate their limits and carry positive shadow prices."
+srcset="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-jerk-active_hu_1af7e1b595c7d983.webp 320w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-jerk-active_hu_90690e0959aa02df.webp 480w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-jerk-active_hu_5bb8a60d501820b9.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/shadow-price-jerk-active_hu_1af7e1b595c7d983.webp"
+width="760"
+height="225"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Clustering trajectories by their shadow-price signature recovered exactly the structure I&amp;rsquo;d expect from real driving data — a large cluster where no comfort constraint binds at all, a cluster of comfort-abiding but non-smooth trajectories where jerk limits dominate, a cluster where lane geometry dominates, and a mixed cluster where both interact — without needing to hand-label scenario types.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="Four trajectory clusters discovered purely from normalized shadow-price signatures: low-sensitivity, jerk-sensitive, lane-sensitive, and mixed lane-dominant cases."
+srcset="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/trajectory-clusters_hu_2dba231679d27cc5.webp 320w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/trajectory-clusters_hu_c2a36c1d2f15f2bd.webp 480w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/trajectory-clusters_hu_2c9b45144ea81124.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/trajectory-clusters_hu_2dba231679d27cc5.webp"
+width="760"
+height="497"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="elastic-constraint-relaxation"&gt;Elastic Constraint Relaxation&lt;/h3&gt;
+&lt;p&gt;Shadow prices tell you which constraints conflict with the data; &lt;strong&gt;elastic relaxation&lt;/strong&gt; is what turns that diagnosis into an action. I added a slack variable to each constraint with an $L_1$ penalty on its magnitude, so the solver only pays to violate a constraint when the shadow price of &lt;em&gt;not&lt;/em&gt; violating it is high enough to be worth the penalty — i.e., the slack is priced like a resource, and the optimizer only draws on it when the benefit outweighs the cost. I shipped this as a relaxable augmented-Lagrangian constraint type that is &lt;strong&gt;no-op-safe&lt;/strong&gt;: it falls back cleanly to standard hard-constraint behavior when relaxation isn&amp;rsquo;t needed, and degrades gracefully (rather than failing outright) on the sharp turns and emergency-braking scenarios where hard comfort limits are simply incompatible with what the maneuver requires.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="The lateral comfort constraint elastically relaxed to let the denoiser track a sharp turn (bottom-left panel) rather than clipping the trajectory to an infeasible hard limit."
+srcset="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/elastic-relaxation-sharp-turn_hu_6e2f292068c90e66.webp 320w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/elastic-relaxation-sharp-turn_hu_7d075a68e6679741.webp 480w, https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/elastic-relaxation-sharp-turn_hu_7db3d7a7113265f5.webp 608w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/elastic-relaxation-sharp-turn_hu_6e2f292068c90e66.webp"
+width="608"
+height="760"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="related-exploration-constraint-relaxation-for-narrow-u-turns"&gt;Related Exploration: Constraint Relaxation for Narrow U-Turns&lt;/h3&gt;
+&lt;p&gt;As a smaller side investigation of the same idea, I looked at why our geometry-based path planner struggled with U-turns at narrow intersections, which typically require a multi-point (&amp;ldquo;K-turn&amp;rdquo;) maneuver. The planner&amp;rsquo;s hard geometric constraints (curvature, pinch, juke) were often infeasible as stated — but what we actually care about is lateral &lt;em&gt;comfort&lt;/em&gt;, which is jointly determined by path curvature &lt;strong&gt;and&lt;/strong&gt; speed. A path that&amp;rsquo;s too tight at highway speed can be perfectly comfortable if the vehicle slows down first.&lt;/p&gt;
+&lt;p&gt;I reformulated this as an MPC problem that jointly plans a speed profile alongside the path, replacing the hard geometric constraints with a comfort-driven acceleration/jerk formulation over two phases: a tracking phase where progress is rewarded, and a braking tail that drives the vehicle to a full stop as a control-invariant terminal condition — so the planner always has a safe fallback if the maneuver can&amp;rsquo;t be completed. Testing across intersection widths showed the same qualitative shadow-price-style behavior: at 4m the turn is geometrically infeasible and the planner brakes to a safe stop instead of forcing a comfort violation, while at 10m there&amp;rsquo;s enough room to complete the turn smoothly.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;&lt;img alt="U-turn MPC at a 4m-wide intersection: infeasible geometry, planner brakes to a safe stop."
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/uturn-w4-stopped.gif"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;&lt;img alt="U-turn MPC at a 10m-wide intersection: enough room to complete the turn smoothly."
+src="https://cadenzacoda.github.io/portfolio/projects/didi-motion-planning/uturn-w10-completed.gif"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="re-architecting-the-production-solver"&gt;Re-architecting the Production Solver&lt;/h3&gt;
+&lt;p&gt;On the production side, I re-architected the trajectory-optimization core of a large legacy C++ planner — previously built on an IPOPT-based NLP formulation — as an efficient augmented-Lagrangian DDP solver, and built a reusable solver abstraction that let IPOPT, Acados/HPIPM SQP, and my Python/C++ AL-DDP implementation be benchmarked and swapped side-by-side. The new solver improved solve speed by &lt;strong&gt;~6x&lt;/strong&gt; over the IPOPT baseline, a critical margin for a component that has to run within a real-time onboard planning stack.&lt;/p&gt;
+&lt;h3 id="cross-team-collaboration"&gt;Cross-Team Collaboration&lt;/h3&gt;
+&lt;p&gt;I coordinated design and code reviews across the ML-planner and path-planner teams, evaluated changes on real driving scenarios across safety, compliance, comfort, and efficiency metrics, and participated in weekly road-test triage.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Motion Planning Engineer, Intern&lt;/strong&gt; (May 2026 &amp;mdash; Aug 2026)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Integrated a DDP smoother into the training and preprocessing pipeline of an end-to-end planning model trained on &lt;strong&gt;1.3B human-driving frames&lt;/strong&gt;, improving comfort and efficiency in data-based simulation.&lt;/li&gt;
+&lt;li&gt;Reformulated trajectory cleanup as Bayesian MAP estimation and shipped an augmented-Lagrangian DDP denoiser, reducing jerk and lateral-jerk discomfort rates to &lt;strong&gt;0-4% from 8-39%&lt;/strong&gt; while keeping ADE/FDE competitive.&lt;/li&gt;
+&lt;li&gt;Re-architected the trajectory-optimization core of a large legacy C++ production planner as an efficient augmented-Lagrangian DDP solver, improving solve speed by ~6x over an IPOPT baseline.&lt;/li&gt;
+&lt;li&gt;Designed an elastic constraint-relaxation scheme with L1-penalized slacks, diagnosed via constraint shadow prices, and shipped it onboard as a no-op-safe relaxable augmented-Lagrangian constraint type.&lt;/li&gt;
+&lt;li&gt;Coordinated design and code reviews across ML-planner and path-planner teams; evaluated changes on real driving scenarios across safety, compliance, comfort, and efficiency metrics; and participated in weekly road-test triage.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; C++17, Python, CasADi, Acados/HPIPM/BLASFEO, IPOPT, Eigen, pybind11, ROS 1, Bazel.&lt;/p&gt;</description></item><item><title>Real-Time Regulation-Aware Game-Theoretic Motion Planning for Head-to-Head Autonomous Racing</title><link>https://cadenzacoda.github.io/portfolio/publications/regulation-aware-motion-planning/</link><pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate><guid>https://cadenzacoda.github.io/portfolio/publications/regulation-aware-motion-planning/</guid><description/></item></channel></rss>

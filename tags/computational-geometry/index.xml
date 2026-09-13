@@ -49,4 +49,14 @@ loading="lazy" data-zoomable /&gt;&lt;/div&gt;
 &lt;/ul&gt;
 &lt;blockquote class="border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 italic text-neutral-600 dark:text-neutral-400 my-6"&gt;
 &lt;p&gt;In hindsight, this project shaped how I think about the relationship between geometric structure, modeling assumptions, and real-world relevance. Many of the limitations of this work informed my later focus on formally scoped, validated methods in safe learning and control.&lt;/p&gt;
-&lt;/blockquote&gt;</description></item></channel></rss>
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="follow-up-corner-smoothing-for-additive-manufacturing-toolpaths-may-2021--aug-2021"&gt;Follow-up: Corner Smoothing for Additive Manufacturing Toolpaths (May 2021 &amp;mdash; Aug 2021)&lt;/h2&gt;
+&lt;p&gt;As a natural extension of the coverage-path work above, I later proposed a corner-smoothing method for additive manufacturing toolpaths, aiming to achieve uniform coating while constraining maximum curvature. I refined the original formulation into a convex optimization problem enforcing continuous curvature and even area coverage, implemented an iterative gradient-based solver in Python, and integrated it into the parallel-curve toolpath planner from the coverage-path project.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Research Assistant&lt;/strong&gt; (May 2021 &amp;mdash; Aug 2021)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Proposed a corner smoothing method for additive manufacturing toolpaths to achieve uniform coating while constraining maximum curvature.&lt;/li&gt;
+&lt;li&gt;Refined the original formulation into a convex optimization problem to enforce continuous curvature and even area coverage.&lt;/li&gt;
+&lt;li&gt;Implemented an iterative solver (gradient-based) in Python and integrated it into a parallel-curve toolpath planner.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Tech:&lt;/strong&gt; Convex optimization, Python.&lt;/p&gt;</description></item></channel></rss>
