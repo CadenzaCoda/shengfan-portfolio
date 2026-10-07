@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Interleaved Projected Gradient Descent for Safe Imitation Learning</title>
+<meta name=description content="Imitation learning for neural-network control policies under state and input constraints: interleave one imitation step with a block of safety steps toward projected actions, then deploy the network alone, without a safety filter.">
+<link rel=canonical href=https://www.cadenzacoda.click/publications/interleaved-projected-gradient-descent/>
+<meta name=citation_title content="Interleaved Projected Gradient Descent for Safe Imitation Learning">
+<meta name=citation_author content="Shengfan Cao">
+<meta name=citation_author content="Francesco Borrelli">
+<meta name=citation_publication_date content="2026/10/05">
+<meta name=citation_arxiv_id content="2610.07167">
+<meta name=citation_pdf_url content="https://arxiv.org/pdf/2610.07167">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interleaved Projected Gradient Descent for Safe Imitation Learning">
+<meta property="og:description" content="Interleave imitation and safety steps during training; deploy the network alone. Racing: violating episodes fall from 15% to 1% at the lap time of unconstrained imitation.">
+<meta property="og:url" content="https://www.cadenzacoda.click/publications/interleaved-projected-gradient-descent/">
+<meta property="og:image" content="https://www.cadenzacoda.click/publications/interleaved-projected-gradient-descent/assets/figures/traj_inter_log.png">
+<meta property="og:image:alt" content="Closed-loop racing trajectories of the interleaved policy on an L-shaped track.">
+<meta name=twitter:card content="summary_large_image">
+<meta name=theme-color content="#f4f6f7">
+<link rel=icon href=assets/favicon.svg type=image/svg+xml>
+<link rel=stylesheet href=assets/style.css>
+<link rel=stylesheet href=assets/ipgd.css>
+<link rel=stylesheet href=assets/track_toy.css>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Interleaved Projected Gradient Descent for Safe Imitation Learning","name":"Interleaved Projected Gradient Descent for Safe Imitation Learning","author":[{"@type":"Person","name":"Shengfan Cao","url":"https://www.cadenzacoda.click/"},{"@type":"Person","name":"Francesco Borrelli"}],"datePublished":"2026-10-05","url":"https://www.cadenzacoda.click/publications/interleaved-projected-gradient-descent/","sameAs":"https://arxiv.org/abs/2610.07167","identifier":"arXiv:2610.07167","keywords":["safe imitation learning","projected gradient descent","safety filter","behavior cloning","autonomous racing","constrained policy learning"],"description":"Training alternates a standard imitation gradient step with a block of safety steps that pull the network's actions toward their projection onto the safe set; at run time the controller is the trained network alone. The scheme is analyzed as inexact projected gradient descent in the space of policy actions and evaluated on a constrained planning example and nonlinear autonomous racing."}</script>
+<script src=assets/main.js defer></script>
+<script src=assets/track_toy_data.js defer></script>
+<script src=assets/track_toy.js defer></script>
+</head>
+<body>
+<a class=skip-link href=#main>Skip to content</a>
+<header class=site-header>
+<a class=wordmark href=https://www.cadenzacoda.click/>Shengfan Cao<span> / Research</span></a>
+<nav aria-label="Project navigation">
+<a href=#track-demo>Demo</a>
+<a href=#method>Method</a>
+<a href=#results>Results</a>
+<a href=#resources>Resources</a>
+<a class=nav-paper href=https://arxiv.org/abs/2610.07167>Read paper ↗</a>
+</nav>
+</header>
+<main id=main>
+<section class="hero wrap" aria-labelledby=project-title>
+<div class=hero-copy>
+<p class=eyebrow><span class=status-dot></span> Preprint 2026 <span class=divider>/</span> Safe imitation learning</p>
+<h1 id=project-title>Interleaved<span>Projected Gradient Descent <br>for Safe Imitation Learning</span></h1>
+<p class=hero-deck>Imitate the expert. <br>Then correct toward safety.</p>
+<p class=hero-description>Training alternates one imitation step with a block of safety steps that pull the network’s actions toward their projection onto the safe set. At run time, the controller is the network alone, with no safety filter.</p>
+<p class=authors><a href=https://www.cadenzacoda.click/>Shengfan Cao</a><span> · </span>Francesco Borrelli</p>
+<div class=actions>
+<a class="button primary" href=https://arxiv.org/abs/2610.07167>Read the paper ↗</a>
+<a class="button secondary" href=#toy>Try the toy problem ↓</a>
+</div>
+</div>
+<figure class=hero-figure>
+<div class=figure-top><span>One training iteration</span><span>Policy-output space</span></div>
+<img src=assets/interleave.svg width=460 height=390 alt="Conceptual diagram in policy-output space: an imitation step moves the actions toward the demonstrations and outside the safe set; a block of safety steps pulls them back to its boundary." fetchpriority=high>
+<figcaption><strong>Interleave<span>imitation steps with safety blocks</span></strong><span>Conceptual illustration</span></figcaption>
+</figure>
+</section>
+
+<div class="research-strip wrap">
+<p><span>01 / Imitate</span>One gradient step on the cloning loss</p>
+<p><span>02 / Correct</span>A block of steps toward projected actions</p>
+<p><span>03 / Deploy</span>The network alone, with no filter</p>
+</div>
+
+<section class="section wrap intro-grid" aria-labelledby=idea-title>
+<div>
+<p class=eyebrow>The question</p>
+<h2 id=idea-title>Can the safety filter make <br>the policy safer to begin with?</h2>
+</div>
+<div class=prose>
+<p>A projection-based safety filter can wrap any policy. But an unsafe policy triggers frequent or large interventions, and while the filter stays active, the closed loop drifts from the intended behavior.</p>
+<p><strong>We use the filter during training instead.</strong> Imitation and safety correction stay separate operations: one imitation gradient step, then a block of safety steps that regress the network’s actions toward their projection onto the safe set.</p>
+<p>Most alternatives add a weighted safety penalty to the imitation loss. That weight sets the safety–performance trade-off and has to be tuned for each problem. Interleaving needs a safety budget that is only large enough.</p>
+</div>
+</section>
+
+<section id=toy class=demo-section aria-labelledby=toy-title>
+<div class="wrap projection-grid">
+<div class=geometry-controls>
+<div class=geometry-intro>
+<p class=eyebrow>Explore the geometry</p>
+<h2 id=toy-title>Interleaving against <br>a fused penalty.</h2>
+<p>One training state with a two-dimensional action, so the policy’s output is a point in the plane and the safe action set is an ellipse. The demonstrated action lies outside it. Both methods start from the same output and see only the imitation gradient and projections of their own actions. Neither is told the constrained optimum v*.</p>
+</div>
+<div class=geometry-knobs>
+<div class=bank-controls role=group aria-label="Run controls">
+<button type=button id=play-toggle class=active aria-pressed=false>Play animation</button>
+<button type=button id=step-once>Step</button>
+<button type=button id=run-end>Run to end</button>
+<button type=button id=reset-run>Reset</button>
+</div>
+<label for=lambda>Fused penalty weight λ <output id=lambda-value for=lambda>1</output></label>
+<input id=lambda type=range min=-1 max=2 value=0 step=0.25>
+<div class=step-mode role=group aria-labelledby=step-mode-label>
+<span id=step-mode-label>Fused step size</span>
+<div class=bank-controls>
+<button type=button class=active data-fused-step=fixed aria-pressed=true>Shared ηₜ</button>
+<button type=button data-fused-step=normalized aria-pressed=false>Normalized ηₜ/(1 + λ)</button>
+</div>
+</div>
+<label for=coupling>Coupling between the two outputs <output id=coupling-value for=coupling>0.30</output></label>
+<input id=coupling type=range min=0 max=90 value=30 step=5>
+<p id=toy-status class=projection-status aria-live=polite>Press Play animation to watch both policies train from the same start, one step at a time.</p>
+<p class=small>An affine toy of Sections III–IV. Interleaving follows a recipe that converges well here: refreshed safety targets, a safety block of K<sub>t</sub> = ⌈ln(t + 2)⌉ steps, a learning rate that decays from 0.2 to 0.002 over the run, and safety steps near their stability limit. The run lasts 80 (1 + h)/(1 − h) iterations: stronger parameter sharing makes the problem worse conditioned, so it needs longer. Fused training shares the same learning rate. The weight λ only affects fused training; interleaving has no weight to tune.</p>
+</div>
+</div>
+<div class=geometry-evidence>
+<figure class=interactive-figure>
+<svg id=toy-plot viewBox="0 0 500 440" role=img aria-labelledby="toy-svg-title toy-svg-description">
+<title id=toy-svg-title>Training paths of interleaved and fused training in policy-output space</title>
+<desc id=toy-svg-description>The elliptical safe action set, the unsafe demonstrations outside it, the constrained optimum on its boundary, and the outputs visited by interleaved and fused training from a shared start.</desc>
+<defs>
+<pattern id=grid width=23 height=23 patternUnits=userSpaceOnUse><path d="M23 0H0V23" fill=none stroke="#edf1f4"/></pattern>
+<clipPath id=plot-clip><rect x=25 y=25 width=455 height=390 /></clipPath>
+</defs>
+<rect width=500 height=440 fill="#fff"/>
+<rect x=25 y=25 width=455 height=390 fill="url(#grid)"/>
+<ellipse id=safe-set fill="#dcefe2" fill-opacity=".9" stroke="#2f8a4e" stroke-width=1.5 />
+<path d="M25 220H480M186 415V25" stroke="#c3cbd3" stroke-width=1 />
+<text x=450 y=240 class=axis-label>u₁</text>
+<text x=194 y=42 class=axis-label>u₂</text>
+<text id=safe-label class=point-label fill="#26733f">Safe actions 𝒞</text>
+<line id=demo-link stroke="#e3a29f" stroke-width=1 stroke-dasharray="2 4"/>
+<circle id=demo-point r=6 fill=none stroke="#cc2f2b" stroke-width=2 />
+<text id=demo-label class=point-label fill="#a8261f" text-anchor=middle>Demonstrations ū</text>
+<g clip-path="url(#plot-clip)">
+<polyline id=inter-path fill=none stroke="#0b63a8" stroke-width=2 />
+<polyline id=fused-path fill=none stroke="#c47f00" stroke-width=1.6 stroke-dasharray="5 4"/>
+</g>
+<circle id=optimum-point r=6 fill="#fff" stroke="#16202a" stroke-width=1.5 />
+<text id=optimum-label class=point-label text-anchor=end>v*</text>
+<circle id=start-point r=4 fill="#16202a"/>
+<text id=start-label class=point-label>Start</text>
+<line id=target-line stroke="#0b63a8" stroke-width=1.2 stroke-dasharray="2 3" style="display:none"/>
+<circle id=target-point r=5 fill="#fff" stroke="#0b63a8" stroke-width=1.8 style="display:none"/>
+<circle id=fused-point r=6 fill="#c47f00" stroke="#fff" stroke-width=1.5 />
+<circle id=inter-point r=6 fill="#0b63a8" stroke="#fff" stroke-width=2 />
+<g id=inset aria-hidden=true>
+<clipPath id=inset-clip><rect x=314 y=290 width=160 height=118 /></clipPath>
+<rect x=314 y=290 width=160 height=118 fill="#fff" stroke="#a3aeb9"/>
+<g clip-path="url(#inset-clip)">
+<ellipse id=inset-set fill="#dcefe2" stroke="#2f8a4e" stroke-width=1.5 />
+<polyline id=inset-fused-path fill=none stroke="#c47f00" stroke-width=1.4 stroke-dasharray="4 3"/>
+<polyline id=inset-inter-path fill=none stroke="#0b63a8" stroke-width=1.6 stroke-linejoin=round />
+<line id=inset-target-line stroke="#0b63a8" stroke-width=1 stroke-dasharray="2 3" style="display:none"/>
+<circle id=inset-target r=4 fill="#fff" stroke="#0b63a8" stroke-width=1.5 style="display:none"/>
+<circle id=inset-optimum r=4.5 fill="#fff" stroke="#16202a" stroke-width=1.3 />
+<circle id=inset-fused r=4.5 fill="#c47f00" stroke="#fff" stroke-width=1.2 />
+<circle id=inset-inter r=4.5 fill="#0b63a8" stroke="#fff" stroke-width=1.5 />
+</g>
+<text x=320 y=303 class=point-label>×4 around v*</text>
+</g>
+<text x=35 y=432 class=point-label id=phase-label aria-hidden=true>Iteration 0</text>
+</svg>
+<figcaption class=geometry-legend>
+<span><i class="key safe-set"></i>Safe actions</span>
+<span><i class="key demo"></i>Demonstrations</span>
+<span><i class="key optimum"></i>Constrained optimum</span>
+<span><i class="key inter"></i>Interleaved</span>
+<span><i class="key fused"></i>Fused penalty</span>
+<span><i class="key target"></i>Projection target</span>
+</figcaption>
+</figure>
+<div class=geometry-readout>
+<div><span id=iteration-label>Outer iteration t of 149</span><strong id=iteration>0</strong><small id=iteration-note>Next block: K₀ = 1 safety step</small></div>
+<div><span>Learning rate ηₜ</span><strong id=learning-rate>—</strong><small id=fused-eta-note>Decays from 0.2 to 0.002</small></div>
+<div><span>Predicted fused bias</span><strong id=fused-bias>—</strong><small>Distance ‖∇ℓ‖/λ to 𝒞</small></div>
+<div><span>Safety-step distortion</span><strong id=kappa-s>—</strong><small>κ<sub>S</sub>, largest tilt from the outward normal</small></div>
+</div>
+<table class=sample-table>
+<caption>Where each policy is now</caption>
+<thead><tr><th scope=col>Method</th><th scope=col>Distance to 𝒞</th><th scope=col>Distance to v*</th><th scope=col>Gradient steps</th></tr></thead>
+<tbody>
+<tr><td><i style="background:#0b63a8"></i>Interleaved</td><td id=inter-dc>—</td><td id=inter-dv>—</td><td id=inter-steps>—</td></tr>
+<tr><td><i style="background:#c47f00"></i>Fused penalty</td><td id=fused-dc>—</td><td id=fused-dv>—</td><td id=fused-steps>—</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=wrap>
+<details class=geometry-math>
+<summary>What is computed in this example? <span aria-hidden=true>+</span></summary>
+<div>
+<p>The output is the action v = π(x) = (u₁, u₂) at a single training state, with safe set 𝒞 = {u : u₁²/1.2² + u₂²/0.9² ≤ 1}. Projection onto the ellipse has no closed form; it is computed from its optimality conditions with a one-dimensional bisection. The demonstration is ū = (1.9, 0.5), so the constrained optimum is v* = Π<sub>𝒞</sub>(ū) ≈ (1.16, 0.23). The policy is affine in its weights with neural-tangent-kernel Gram matrix H = [[1, h], [h, 1]]; the coupling slider sets h, which models weights shared by the two outputs.</p>
+<p class=bound-equation>Interleaved: v ← v − η<sub>t</sub>H(v − ū), then K<sub>t</sub> = ⌈ln(t + 2)⌉ times v ← v − βH(v − Π<sub>𝒞</sub>(v))</p>
+<p class=bound-equation>Fused: v ← v − η<sub>f</sub> H[(v − ū) + λ(v − Π<sub>𝒞</sub>(v))]</p>
+<p>The learning rate decays geometrically, η<sub>t</sub> = 0.2 · 0.01<sup>t/T</sup> over a run of T = 80(1 + h)/(1 − h) iterations, and the safety step is β = 0.9/(1 + h), just inside its stability limit 1/‖H‖. The horizon grows with the condition number (1 + h)/(1 − h) of H, because the imitation step converges at rate η(1 − h) along H’s weak direction. The safety schedule is the logarithmic one of Algorithm 1 and Example 1 with c = 1, so the projection error left by each block shrinks over training (Corollary 1). Fused training uses either the shared rate η<sub>f</sub> = η<sub>t</sub> or the normalized rate η<sub>f</sub> = η<sub>t</sub>/(1 + λ). Its update is stable only while η<sub>f</sub>(1 + λ)(1 + h) &lt; 2, the stability condition of Section IV. With the shared rate, a large λ breaks that condition early in training: each penalty correction overshoots deep into the safe set, and the actions chatter at the boundary until the rate has decayed. Normalizing the rate keeps it stable but divides the imitation step by 1 + λ, as in the “Fused, η/(1 + λ)” row of the racing ablations.</p>
+<p>The fused update descends ℓ + λφ, a quadratic penalty. Since φ has zero gradient on the safe set, v* is never a stationary point of it, and the fused outputs settle outside 𝒞 at distance ‖∇ℓ‖/λ. Raising λ shrinks that bias, but then the shared rate overshoots and the normalized rate slows imitation; no learning-rate schedule moves the fixed point. With h > 0, each safety step is tilted away from the outward normal of the ellipse; the largest tilt is the distortion κ<sub>S</sub> of Assumption 2. On the curved boundary this leaves interleaving an offset from v* proportional to the learning rate, which the decaying rate removes. With a constant rate it would stay, as Theorem 1 allows. In racing, where corrections are sparse, the conditions of the analysis fail.</p>
+</div>
+</details>
+</div>
+</section>
+
+<section id=track-demo class="section wrap track-toy" aria-labelledby=track-title>
+<div class=tt-head>
+<div>
+<p class=eyebrow>Optimizing for multiple states simultaneously</p>
+<h2 id=track-title>Every safety step <br>moves every action.</h2>
+</div>
+<div class=prose>
+<p>A policy is trained on nine perturbed states of the race track. At each state it chooses a <strong>first action</strong> (acceleration, steering); after that, a linear tracking controller takes over. The <strong>label ✕</strong> is that controller's own first action, which drives the car out of the safety band.</p>
+<p>The <strong>green polygon</strong> is the set of first actions after which the controller keeps the car in the band, and <strong>v* ◯</strong> is the cheapest of them: the constrained optimum. Both methods start from the same network and see only the imitation gradient and projections of their own actions. Because the nine actions share one network, every step moves all of them.</p>
+</div>
+</div>
+  <div class="stage">
+    <aside class="panel sidebar" id="tt-sidebar" aria-label="Simulation controls">
+      <div class="buttons">
+        <button class="primary" id="tt-play">Play</button>
+        <button id="tt-step">Step</button>
+        <button id="tt-reset" title="Restart training from the initial network">Reset</button>
+        <button id="tt-settings" class="only-compact" aria-expanded="false" aria-controls="tt-sidebar">Settings</button>
+      </div>
+      <label for="tt-speed">Speed <output id="tt-speed-v">1×</output></label>
+      <input id="tt-speed" type="range" min="-2" max="2" step="0.5" value="0" aria-label="Playback speed multiplier">
+      <p id="tt-status" aria-live="polite"></p>
+      <fieldset>
+        <legend><span class="swatch" style="background:var(--fused)"></span>Fused penalty</legend>
+        <label class="check"><input id="tt-show-fused" type="checkbox" checked> Show</label>
+        <label for="tt-lam">Safety weight λ <output id="tt-lam-v">10</output></label>
+        <input id="tt-lam" type="range" min="0" max="3" step="1" value="2">
+        <label class="check"><input id="tt-norm" type="checkbox" checked> Step η/(1 + λ), needed for stability</label>
+      </fieldset>
+      <fieldset>
+        <legend><span class="swatch" style="background:var(--inter)"></span>Interleaved (proposed)</legend>
+        <label class="check"><input id="tt-show-inter" type="checkbox" checked> Show</label>
+        <label for="tt-c"><span>Safety steps K<sub>t</sub> = ⌈c ln(t + 2)⌉, c</span> <output id="tt-c-v">2</output></label>
+        <input id="tt-c" type="range" min="0.5" max="4" step="0.5" value="2">
+        <label for="tt-beta">Safety step size β <output id="tt-beta-v">0.40</output></label>
+        <input id="tt-beta" type="range" min="0.05" max="0.6" step="0.05" value="0.4">
+        <label class="check"><input id="tt-refresh" type="checkbox" checked> Refresh targets every safety step</label>
+      </fieldset>
+      <button id="tt-defaults" class="small-btn" title="Restore the default settings without restarting training">Default settings</button>
+      <div class="plotbox" id="tt-plotbox" tabindex="0" role="button" aria-expanded="false" aria-label="Distance to v* over iterations. Activate to enlarge.">
+        <h3>Distance to v* <span class="hint">click to enlarge</span></h3>
+        <div id="tt-plot"></div>
+        <p class="legend"><span><span class="swatch" style="background:var(--fused)"></span>fused</span><span><span class="swatch" style="background:var(--inter)"></span>interleaved</span><span>solid: to v*</span><span>dashed: to the safe set</span></p>
+      </div>
+    </aside>
+    <figure class="panel trackfig">
+      <div id="tt-figure"></div>
+      <div id="tt-caption" class="only-compact" aria-live="polite"><p class="cap-kicker" id="tt-cap-kicker"></p><p class="cap-title" id="tt-cap-title"></p><p class="cap-desc" id="tt-cap-desc"></p></div>
+      <div id="tt-single" class="only-compact">
+        <div class="single-nav">
+          <button id="tt-prev" aria-label="Previous state">‹</button>
+          <span id="tt-single-label"></span>
+          <button id="tt-next" aria-label="Next state">›</button>
+        </div>
+        <svg id="tt-single-svg" viewBox="0 0 176 150" role="img" aria-label="First-action window of the selected state"></svg>
+        <p class="single-hint">Tap a numbered state on the track, or swipe, to change state.</p>
+      </div>
+      <figcaption class="legend">
+        <span><span class="swatch" style="background:#8a96a2"></span>raceline</span>
+        <span><span class="swatch" style="background:#9aa6b1"></span>band (track minus 10 cm)</span>
+        <span><span class="swatch" style="background:#cc2f2b"></span>label ✕ and its continuation</span>
+        <span><span class="swatch" style="background:#16202a"></span>v* ◯ and its continuation</span>
+        <span><span class="swatch" style="background:var(--fused)"></span>fused</span>
+        <span><span class="swatch" style="background:var(--inter)"></span>interleaved</span>
+        <span>Hover a state or its window to draw its 2-second continuations on the track; click to enlarge the window. Windows: first action, acceleration (m/s², across) and steering (rad, up), zoomed; green = safe first actions; dashed ellipse = cost level through v*; open circles = projections.</span>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="caveat">
+    <p><strong>What this is.</strong> The setting of the paper's analysis: a fixed set of states, a quadratic imitation loss, convex safe sets, and exact projections. Each step uses all nine states. Fused training takes gradient steps on the loss plus λ times the squared distance to the safe set; interleaving takes one step on the loss, then K<sub>t</sub> steps toward the projections of its own actions.</p>
+    <p><strong>What this is not.</strong> The network never drives: there is no closed loop and no DAgger. The model is the race car's dynamics linearized along a raceline (lap 5.30 s), the safety band is the track minus a 10 cm margin, and the safe set comes from one controller's continuation rather than the paper's predictive filter. Step sizes are chosen to be visible, not those of the paper's racing runs.</p>
+  </div>
+</section>
+
+<section id=method class=band-light aria-labelledby=method-title>
+<div class="section wrap">
+<div class=section-heading>
+<div>
+<p class=eyebrow>The method</p>
+<h2 id=method-title>Imitate. Project. <br>Correct. Repeat.</h2>
+</div>
+<p>Each outer iteration takes one imitation step, then a safety block whose length grows slowly over training.</p>
+</div>
+<div class=algorithm-steps>
+<article><span>01</span><h3>Take an imitation step</h3><p>Take one gradient step on the behavior-cloning loss J(θ): the performance operator P<sub>η</sub>.</p></article>
+<article><span>02</span><h3>Project the actions</h3><p>The safety filter projects the network’s action at each training state onto its safe action set 𝒞(xᵢ).</p></article>
+<article><span>03</span><h3>Run the safety block</h3><p>Take K<sub>t</sub> gradient steps that regress the actions toward those projections, recomputing the projections before every step.</p></article>
+<article><span>04</span><h3>Grow the budget</h3><p>Set K<sub>t</sub> = ⌈c log(t + 2)⌉. Logarithmic growth is enough to drive the projection error to zero.</p></article>
+</div>
+<div class=method-details>
+<div>
+<p class=eyebrow>One outer iteration</p>
+<p class=equation>θ<sub>t+1</sub> = S<sub>β</sub><sup>K<sub>t</sub></sup>(P<sub>η</sub>(θ<sub>t</sub>))</p>
+<p>P<sub>η</sub> is a gradient step on the imitation loss. S<sub>β</sub> is a gradient step on the safety loss Φ, the mean squared distance from the actions to their safe sets. The analysis treats the safety block as an approximate projection in the space of policy outputs.</p>
+<a class=text-link href=https://arxiv.org/abs/2610.07167>See Section III and Algorithm 1 ↗</a>
+</div>
+<div>
+<p class=eyebrow>Why not a weighted sum?</p>
+<h3>A finite penalty <br>leaves a biased optimum.</h3>
+<p>Summing the imitation and safety gradients descends ℓ + λφ, a quadratic-penalty relaxation. At an active constrained optimum the penalty gradient is zero, so that optimum is not stationary for any finite λ, and the fused solution stays outside the safe set at distance ‖∇ℓ‖/λ. Raising λ also forces a smaller step size.</p>
+</div>
+</div>
+<div class=guarantee-box>
+<div>
+<p class=eyebrow>Analysis</p>
+<h3>Feasibility from the schedule. <br>Optimality up to distortion.</h3>
+</div>
+<div>
+<p><strong>Projection accuracy:</strong> with fixed targets and a Polyak–Łojasiewicz-type condition along the block, the projection residual falls geometrically in the number of safety steps (Proposition 1), and a logarithmic schedule drives it to zero (Corollary 1).</p>
+<p><strong>Fixed targets:</strong> with relative distortion κ in the imitation step, the outputs approach the safe set on the training states and come within κd<sub>⋆</sub>/(1 − κ) of the constrained optimum (Proposition 2). This requires the projected actions to be exactly representable by the network.</p>
+<p><strong>Refreshed targets:</strong> recomputing the projections at every safety step removes that requirement. If each step moves the actions consistently toward the safe set (κ<sub>S</sub> &lt; 1), feasibility on the training states is asymptotic, and if κ + κ<sub>S</sub> &lt; 1 the distance to the optimum is at most (κ + κ<sub>S</sub>)d<sub>⋆</sub>/(1 − κ − κ<sub>S</sub>) (Theorem 1).</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id=results class=results-section>
+<div class="section wrap">
+<div class=section-heading>
+<div>
+<p class=eyebrow>The evidence</p>
+<h2>Nearly as safe as filtering, <br>as fast as imitation.</h2>
+</div>
+<p>A linear problem with a known optimum checks the analysis. A nonlinear racing task tests what holds when its assumptions fail.</p>
+</div>
+
+<article class=experiment-block>
+<div class=experiment-header>
+<span class=experiment-number>01</span>
+<div>
+<h3>Learning a constrained optimal plan</h3>
+<p>A network maps the state of a double integrator to a 20-step input plan. The learner sees only gradients of the planning cost and projections of its own plans, never the constrained optimum.</p>
+</div>
+</div>
+<div class=experiment-facts>
+<span><strong>2000</strong> training states</span>
+<span><strong>20</strong> steps per plan</span>
+<span><strong>~70%</strong> of unconstrained plans infeasible</span>
+</div>
+<div class=split-table>
+<div class=table-card>
+<table class=paper-table>
+<caption>Fused training, mean over three seeds. λ = 0 minimizes the cost alone.</caption>
+<thead><tr><th scope=col>Weight λ</th><th scope=col>Gradient steps</th><th scope=col>Distance to v*</th><th scope=col>Violating episodes</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>12k</td><td>4.24</td><td>58%</td></tr>
+<tr><td>10</td><td>4k</td><td>0.39</td><td>49%</td></tr>
+<tr><td>30</td><td>4k</td><td>0.16</td><td>24%</td></tr>
+<tr><td>100</td><td>4k</td><td>0.11</td><td>10%</td></tr>
+<tr><td>300</td><td>4k</td><td>0.13</td><td>2%</td></tr>
+<tr><td>1000</td><td>4k</td><td>0.19</td><td>1%</td></tr>
+</tbody>
+</table>
+</div>
+<div class=table-card>
+<table class=paper-table>
+<caption>Interleaved training after 200 iterations, mean over three seeds. The budget is K<sub>t</sub> = ⌈c log(t + 2)⌉.</caption>
+<thead><tr><th scope=col>Budget c</th><th scope=col>Gradient steps</th><th scope=col>Distance to v*</th><th scope=col>Violating episodes</th></tr></thead>
+<tbody>
+<tr class=proposed><td>1</td><td>1.2k</td><td>0.18</td><td>0%</td></tr>
+<tr class=proposed><td>2</td><td>2.0k</td><td>0.15</td><td>1%</td></tr>
+<tr class=proposed><td>4</td><td>3.8k</td><td>0.14</td><td>0%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class=result-context>Violating episodes leave the true state bounds in closed loop. Fused training trades safety against optimality through λ, and no weight is safe on every seed within 4000 steps. Every interleaving budget is safe or nearly safe with fewer gradient steps. When corrections are sparse, as with a single-action policy that imitates saturated LQR and needs correction at only 1.5% of states, the step-consistency condition fails and interleaving stalls.</p>
+</article>
+
+<article class=experiment-block>
+<div class=experiment-header>
+<span class=experiment-number>02</span>
+<div>
+<h3>Autonomous racing without a runtime filter</h3>
+<p>A dynamic bicycle model races on an L-shaped track. A model predictive contouring control (MPCC) expert supplies demonstrations through DAgger. A predictive safety filter supplies the projected actions, during training only.</p>
+</div>
+</div>
+<div class=experiment-facts>
+<span><strong>120</strong> starts per seed</span>
+<span><strong>300</strong> DAgger epochs</span>
+<span><strong>57</strong> candidate actions per filter call</span>
+</div>
+<div class=metrics>
+<div><strong class=good>1.0<span>%</span></strong><span>violating episodes at λ = 10, against 15.3% for plain behavior cloning</span></div>
+<div><strong>5.139<span> s</span></strong><span>mean lap time, against 5.144 s for plain behavior cloning and 5.219 s for the filtered expert</span></div>
+<div><strong>~6<span>×</span></strong><span>fewer violating episodes than fused training at its best weight (λ = 0.1, 5.8%)</span></div>
+</div>
+<div class=track-grid>
+<figure>
+<img src=assets/figures/traj_expert.png width=720 height=634 loading=lazy alt="Expert trajectories: most laps stay on the track, five episodes leave it.">
+<figcaption><strong><i class=swatch style="background:#2f3a45"></i>Expert</strong>MPCC, no filter <br><b>5.168 s</b> · 5/40 violating</figcaption>
+</figure>
+<figure>
+<img src=assets/figures/traj_expertfilt.png width=720 height=634 loading=lazy alt="Filtered expert trajectories: no episode leaves the track.">
+<figcaption><strong><i class=swatch style="background:#6b7a8a"></i>Filtered expert</strong>MPCC with a runtime filter <br><b>5.221 s</b> · 0/40 violating</figcaption>
+</figure>
+<figure>
+<img src=assets/figures/traj_fused.png width=720 height=634 loading=lazy alt="Fused-penalty trajectories over six seeds: many episodes leave the track, mostly at the corners.">
+<figcaption><strong><i class=swatch style="background:#c47f00"></i>Fused penalty</strong>One fused step per minibatch <br><b>5.211 s</b> · 34/240 violating</figcaption>
+</figure>
+<figure>
+<img src=assets/figures/traj_fused_kmatch.png width=720 height=634 loading=lazy alt="Compute-matched fused trajectories over six seeds: fewer episodes leave the track than with one fused step, mostly after the hairpin.">
+<figcaption><strong><i class=swatch style="background:#8a5c00"></i>Fused (compute matched)</strong>K<sub>t</sub> fused steps per minibatch <br><b>5.193 s</b> · 11/240 violating</figcaption>
+</figure>
+<figure>
+<img src=assets/figures/traj_inter_k1.png width=720 height=634 loading=lazy alt="Interleaved trajectories with one safety step per minibatch over six seeds: several episodes leave the track, many at the top-left corner.">
+<figcaption><strong><i class=swatch style="background:#8ab8de"></i>Inter (K = 1)</strong>One safety step per minibatch <br><b>5.143 s</b> · 18/240 violating</figcaption>
+</figure>
+<figure>
+<img src=assets/figures/traj_inter_log_once.png width=720 height=634 loading=lazy alt="Interleaved trajectories with a logarithmic budget and fixed targets over six seeds: a dozen episodes leave the track.">
+<figcaption><strong><i class=swatch style="background:#4b8fcb"></i>Inter (log., fixed)</strong>Logarithmic budget, fixed targets <br><b>5.144 s</b> · 12/240 violating</figcaption>
+</figure>
+<figure class=proposed>
+<img src=assets/figures/traj_inter_log.png width=720 height=634 loading=lazy alt="Interleaved trajectories over six seeds: a single episode leaves the track.">
+<figcaption><strong><i class=swatch style="background:#0b63a8"></i>Inter (log., refreshed): proposed</strong>Logarithmic budget, refreshed targets <br><b>5.141 s</b> · 1/240 violating</figcaption>
+</figure>
+<div class=track-note>
+<p><strong>Reading the panels.</strong> Closed-loop trajectories from the 40-start illustration bank. The learned policies use six seeds each at λ = 10 and run with no filter; the experts run once.</p>
+<p>Each episode is drawn until its first violation; the final 2.5 s before it are red, and the violation is circled. The headline numbers and the table below use the separate 120-start bank.</p>
+</div>
+</div>
+
+<h4 class=subhead>Ablations at λ = 10</h4>
+<div class=table-card>
+<table class=paper-table>
+<caption>120 starts per seed: six seeds for the middle block, three for the others. Lap time is the mean ± SD of seed-level means. All methods refresh targets except Inter (log., fixed).</caption>
+<thead><tr><th scope=col>Method</th><th scope=col>Safety updates</th><th scope=col>Violating episodes</th><th scope=col>Lap time (s)</th></tr></thead>
+<tbody>
+<tr><td>Plain BC on raw demonstrations</td><td>—</td><td>55/360</td><td>5.144 ± .002</td></tr>
+<tr class=group><td>Plain BC on filtered demonstrations</td><td>—</td><td>24/360</td><td>5.189 ± .007</td></tr>
+<tr><td>Fused</td><td>1</td><td>149/720</td><td>5.209 ± .023</td></tr>
+<tr><td>Inter (K = 1)</td><td>1</td><td>84/720</td><td>5.142 ± .006</td></tr>
+<tr><td>Fused (compute matched)</td><td>K<sub>t</sub></td><td>41/720</td><td>5.192 ± .014</td></tr>
+<tr><td>Inter (log., fixed)</td><td>K<sub>t</sub></td><td>44/720</td><td>5.142 ± .006</td></tr>
+<tr class="proposed group"><td>Inter (log., refreshed)</td><td>K<sub>t</sub></td><td>7/720</td><td>5.139 ± .006</td></tr>
+<tr><td>Fused, step η/(1 + λ)</td><td>1</td><td>271/360</td><td>5.336 ± .039</td></tr>
+<tr><td>Primal–dual, final λ ≈ 4.4</td><td>1</td><td>56/360</td><td>5.201 ± .009</td></tr>
+<tr><td>Primal–dual, final λ ≈ 19</td><td>1</td><td>46/360</td><td>5.178 ± .020</td></tr>
+<tr><td>Inter (K = 7)</td><td>7</td><td>9/360</td><td>5.150 ± .020</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class=plot-comparison>
+<figure>
+<a href=assets/figures/lambda_sweep.png aria-label="Open the safety-weight sweep at full size"><img src=assets/figures/lambda_sweep.png width=1043 height=1083 loading=lazy alt="Lap time and violation rate against the safety weight λ. Fused training slows and does not get safer as λ grows; interleaving keeps its lap time and its violation rate drops to near zero at λ of 10 and above."></a>
+<figcaption><span>Safety weight</span>For fused training, λ is a trade-off: from 0.1 to 10, laps slow from 5.136 to 5.209 s while violations rise. For interleaving, λ scales the safety step and only sets how quickly violations vanish. Lap times stay within 5.137–5.151 s.</figcaption>
+</figure>
+<figure>
+<a href=assets/figures/training_curves.png aria-label="Open the training curves at full size"><img src=assets/figures/training_curves.png width=1060 height=683 loading=lazy alt="Violating episodes over DAgger epochs. Fused variants stay between 7 and 27 percent late in training; refreshed interleaving reaches zero after epoch 230."></a>
+<figcaption><span>During training</span>Violating episodes, evaluated without a filter on ten starts every ten epochs. After epoch 200, fused training still averages 26–27% at λ ∈ {10, 100}, and 9% when compute matched. Refreshed interleaving records none after epoch 230.</figcaption>
+</figure>
+</div>
+</article>
+
+<aside class=scope-note>
+<h3>Where does the racing gain come from?</h3>
+<p>Not from the conditions of the analysis. The filter corrects only 6–7.5% of the states in a safety block, and 88–95% of each block’s output change falls on states that need no correction, so κ<sub>S</sub> ≳ 0.94. The gain acts through the data DAgger collects: plain BC retrained from scratch on the final buffer of an interleaved run violates in 13/360 episodes, against 110/360 on the buffer of a plain-BC run. The guarantees concern the training states, and the gains cost additional training computation.</p>
+</aside>
+</div>
+</section>
+
+<section class=band-light aria-labelledby=perspective-title>
+<div class="section wrap intro-grid">
+<div>
+<p class=eyebrow>Perspective</p>
+<h2 id=perspective-title>Separate the objectives. <br>Keep the filter as a fallback.</h2>
+</div>
+<div class=prose>
+<p>Separating task optimization from safety correction turns imitation learning into inexact projected gradient descent in the space of policy outputs. When corrections are dense, the safety steps alone drive the policy toward the constrained optimum.</p>
+<p>When corrections are sparse, as in racing, interleaving still yields policies that are safer than penalty-based training at the lap time of unconstrained imitation, with a safety weight that only needs to be large enough.</p>
+<p>The guarantees concern the training states, so a runtime filter remains a sensible fallback. Extending them to sparse corrections, through architectures that localize safety updates or safety targets aligned with the expert’s behavior, is left for future work.</p>
+</div>
+</div>
+</section>
+
+<section id=resources class="section wrap resources-section">
+<div class=section-heading>
+<div>
+<p class=eyebrow>Read &amp; build on the work</p>
+<h2>Read the paper.</h2>
+</div>
+<p>The manuscript contains the full analysis with proofs, the planning example, and the racing ablations.</p>
+</div>
+<div class=resource-grid>
+<a href=https://arxiv.org/abs/2610.07167>
+<span class=resource-kind>arXiv</span>
+<h3>Abstract page ↗</h3>
+<p>Abstract, version history, and metadata.</p>
+</a>
+<a href=https://arxiv.org/pdf/2610.07167>
+<span class=resource-kind>PDF</span>
+<h3>Full manuscript ↗</h3>
+<p>Method, analysis, experiments, and proofs.</p>
+</a>
+<a href=../constraint-aware-imitation-learning/>
+<span class=resource-kind>Prior work</span>
+<h3>Constraint-aware imitation learning</h3>
+<p>A learned safe-set approximation as a source of safety gradients for imitation (IROS 2025).</p>
+</a>
+<a href=../constrained-policy-optimization/>
+<span class=resource-kind>Related</span>
+<h3>SCPO: weight-space projection</h3>
+<p>Projecting policy updates into a locally feasible region of weight space (IFAC 2026).</p>
+</a>
+</div>
+<div class=citation>
+<div class=citation-heading>
+<h3>Cite this work</h3>
+<button id=copy-citation type=button>Copy BibTeX</button>
+</div>
+<p>Interleaved Projected Gradient Descent for Safe Imitation Learning <br><span>Shengfan Cao and Francesco Borrelli</span></p>
+<p class=citation-note>arXiv preprint, 2026.</p>
+<pre><code id=bibtex>@misc{cao2026interleaved,
+  title         = {Interleaved Projected Gradient Descent
+                   for Safe Imitation Learning},
+  author        = {Shengfan Cao and Francesco Borrelli},
+  year          = {2026},
+  eprint        = {2610.07167},
+  archivePrefix = {arXiv},
+  primaryClass  = {eess.SY},
+  url           = {https://arxiv.org/abs/2610.07167}
+}</code></pre>
+<p id=copy-status class=copy-status aria-live=polite></p>
+</div>
+</section>
+</main>
+<footer class=wrap>
+<a class=wordmark href=https://www.cadenzacoda.click/>Shengfan Cao<span> / Research</span></a>
+<p>Interleaved projected gradient descent · Preprint, 2026</p>
+<a href=#main>Back to top ↑</a>
+</footer>
+<div id="tt-plot-backdrop" hidden></div>
+</body>
+</html>
